@@ -45,27 +45,6 @@ coverage/
 *.pem
 *.key
 
-# Documentation files (exclude from git)
-ENHANCEMENTS_SUMMARY.md
-ENTERPRISE_FEATURES.md
-FIXES_APPLIED.md
-GITHUB_PUSH_GUIDE.md
-PROJECT_SUMMARY.md
-IMPLEMENTATION_SUMMARY.md
-RATE_LIMIT_FIX.md
-REQUIREMENTS_CHECKLIST.md
-SPECIFICATIONS_COMPLIANCE.md
-TASK_COMPLIANCE_REPORT.md
-TROUBLESHOOTING.md
-SETUP_GUIDE.md
-DEMO_ACCOUNTS.txt
-CREATE_ENV.md
-repo.txt
-
-# Task files (exclude from git)
-Task_overview.txt
-Task_prompt.txt
-Task_prompt2.txt
 
 # Screenshots (exclude from git)
 *.png
