@@ -1,6 +1,6 @@
 # CoolTech Credential Management System
 
-A production-grade MERN stack application for managing credentials across organizational units and divisions. Built with enterprise-level security and a premium UI/UX inspired by N-Able/CertifyMe standards.
+A production-grade MERN stack application for managing credentials across organizational units and divisions. Built with enterprise-level security and a premium UI/UX.
 
 ## 📋 Table of Contents
 

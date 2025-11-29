@@ -1,0 +1,35 @@
+==========================================
+COOLTECH CREDENTIAL MANAGEMENT SYSTEM
+DEMO ACCOUNTS FOR TESTING
+==========================================
+
+ADMIN ACCOUNT
+-------------
+Email: admin@cooltech.com
+Password: Admin123!
+Role: Admin
+Access: Full system access including user management and assignments
+
+MANAGEMENT ACCOUNT
+------------------
+Email: manager@cooltech.com
+Password: Manager123!
+Role: Management
+Access: Can read, add, and update credentials
+
+REGULAR USER ACCOUNT
+---------------------
+Email: user@cooltech.com
+Password: User123!
+Role: User
+Access: Can read and add credentials
+
+==========================================
+INSTRUCTIONS:
+1. Run the seed script: npm run seed (in backend folder)
+2. Start the backend: npm run dev (in backend folder)
+3. Start the frontend: npm run dev (in frontend folder)
+4. Navigate to http://localhost:3000
+5. Login with any of the above accounts to test different user roles
+==========================================
+
