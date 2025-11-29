@@ -67,10 +67,11 @@ Task_overview.txt
 Task_prompt.txt
 Task_prompt2.txt
 
-# Screenshots (exclude from git)
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
+# Screenshots in root directory (exclude from git)
+/Screenshot*.png
+/Screenshot*.jpg
+/Screenshot*.jpeg
+
+# Allow Usage Screenshots folder and all its contents
+!Usage Screenshots/
 
