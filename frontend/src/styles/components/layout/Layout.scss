@@ -1,0 +1,21 @@
+@use '../../variables' as *;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: $dark-bg;
+}
+
+.layout-content {
+  flex: 1;
+  margin-left: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: $spacing-xl;
+  margin-top: 72px;
+}
+

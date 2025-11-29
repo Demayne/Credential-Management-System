@@ -1,0 +1,57 @@
+@use '../../variables' as *;
+
+.role-dropdown {
+  position: relative;
+  display: inline-block;
+
+  .role-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: $dark-surface;
+    border: 1px solid $dark-border;
+    border-radius: $border-radius;
+    color: $text-primary;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: $primary-blue;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: $dark-card;
+    border: 1px solid $dark-border;
+    border-radius: $border-radius;
+    box-shadow: $shadow-lg;
+    z-index: 1000;
+    min-width: 150px;
+    overflow: hidden;
+
+    .dropdown-item {
+      display: flex;
+      width: 100%;
+      padding: 10px 16px;
+      background: transparent;
+      border: none;
+      color: $text-primary;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: left;
+
+      &:hover {
+        background: $dark-surface;
+      }
+
+      &.active {
+        background: rgba(37, 99, 235, 0.1);
+      }
+    }
+  }
+}
+

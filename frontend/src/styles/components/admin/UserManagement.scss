@@ -1,0 +1,24 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.user-management {
+  .management-header {
+    margin-bottom: 24px;
+
+    .filters {
+      display: flex;
+      gap: 12px;
+
+      .search-input {
+        flex: 1;
+        @include input-style;
+      }
+
+      .filter-select {
+        @include input-style;
+        min-width: 150px;
+      }
+    }
+  }
+}
+

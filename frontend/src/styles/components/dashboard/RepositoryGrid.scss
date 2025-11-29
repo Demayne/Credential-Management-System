@@ -1,0 +1,168 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.repository-grid {
+  .section-title {
+    font-size: $font-size-xl;
+    color: $text-primary;
+    margin: 0 0 24px 0;
+    font-weight: 600;
+  }
+
+  .repository-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ou-category {
+    @include card-style;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid $dark-border;
+
+    .category-header {
+      padding: 16px 20px;
+      background: $dark-surface;
+      border-bottom: 1px solid $dark-border;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba($primary-blue, 0.05);
+      }
+
+      .category-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        svg {
+          color: $primary-blue;
+          font-size: 14px;
+          transition: transform 0.2s;
+        }
+
+        h4 {
+          font-size: $font-size-lg;
+          color: $text-primary;
+          margin: 0;
+          font-weight: 600;
+        }
+
+        .category-code {
+          font-size: $font-size-xs;
+          color: $text-muted;
+          background: $dark-border;
+          padding: 2px 8px;
+          border-radius: $border-radius-sm;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        .division-count {
+          font-size: $font-size-sm;
+          color: $text-secondary;
+          margin-left: auto;
+        }
+      }
+    }
+
+    .category-divisions {
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+  }
+
+  .repository-card {
+    @include card-style;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: $dark-card;
+    border: 1px solid $dark-border;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+      border-color: $primary-blue;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+
+      .card-icon {
+        font-size: 20px;
+        color: $primary-blue;
+      }
+
+      h4 {
+        font-size: $font-size-base;
+        color: $text-primary;
+        margin: 0;
+        flex: 1;
+        font-weight: 500;
+      }
+    }
+
+    .card-body {
+      margin-bottom: 12px;
+
+      .card-code {
+        font-size: $font-size-xs;
+        color: $text-secondary;
+        margin: 0 0 4px 0;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      .card-description {
+        font-size: $font-size-xs;
+        color: $text-muted;
+        margin: 0;
+        line-height: 1.4;
+      }
+    }
+
+    .card-footer {
+      border-top: 1px solid $dark-border;
+      padding-top: 12px;
+
+      .view-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: $primary-blue;
+        font-size: $font-size-xs;
+        font-weight: 500;
+        transition: gap 0.2s;
+      }
+    }
+
+    &:hover .view-link {
+      gap: 10px;
+    }
+  }
+
+  .empty-state {
+    @include card-style;
+    padding: 64px;
+    text-align: center;
+
+    .empty-icon {
+      font-size: 64px;
+      color: $text-muted;
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: $font-size-lg;
+    }
+  }
+}

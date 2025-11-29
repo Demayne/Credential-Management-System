@@ -1,0 +1,67 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.repository-header {
+  @include card-style;
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .header-icon {
+      font-size: 32px;
+      color: $primary-blue;
+    }
+
+    .header-info {
+      h2 {
+        margin: 0 0 4px 0;
+        color: $text-primary;
+        font-size: $font-size-xl;
+      }
+
+      .header-code {
+        margin: 0 0 4px 0;
+        color: $text-muted;
+        font-size: $font-size-xs;
+        font-family: monospace;
+      }
+
+      .header-ou {
+        margin: 0;
+        color: $text-secondary;
+        font-size: $font-size-sm;
+      }
+    }
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 24px;
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .stat-value {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        color: $primary-blue;
+      }
+
+      .stat-label {
+        font-size: $font-size-xs;
+        color: $text-muted;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+

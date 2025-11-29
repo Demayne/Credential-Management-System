@@ -1,0 +1,43 @@
+@use '../../variables' as *;
+
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.auth-background {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+}
+
+.auth-card {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid $dark-border;
+  border-radius: $border-radius-lg;
+  padding: 40px;
+  box-shadow: $shadow-lg;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+
+  .auth-logo {
+    font-size: 32px;
+    font-weight: 700;
+    color: $primary-blue;
+    margin: 0 0 8px 0;
+  }
+
+  .auth-subtitle {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    margin: 0;
+  }
+}
+

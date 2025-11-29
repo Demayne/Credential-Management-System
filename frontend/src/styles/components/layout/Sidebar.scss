@@ -1,0 +1,66 @@
+@use '../../variables' as *;
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border-right: 1px solid $dark-border;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: width 0.3s ease;
+
+  &.collapsed {
+    width: 80px;
+
+    .sidebar-logo .logo-text {
+      display: none;
+    }
+
+    .nav-label,
+    .user-details,
+    .logout-btn span {
+      display: none;
+    }
+  }
+
+  .sidebar-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $dark-border;
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .logo-text {
+        font-size: $font-size-xl;
+        font-weight: 700;
+        color: $primary-blue;
+        transition: opacity 0.3s;
+      }
+    }
+
+    .collapse-btn {
+      background: transparent;
+      border: none;
+      color: $text-secondary;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: $border-radius;
+      transition: all 0.2s;
+
+      &:hover {
+        background: $dark-surface;
+        color: $text-primary;
+      }
+    }
+  }
+}
+

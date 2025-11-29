@@ -1,0 +1,129 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.ou-hierarchy {
+  @include card-style;
+  padding: 24px;
+
+  .hierarchy-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $dark-border;
+
+    h3 {
+      font-size: $font-size-lg;
+      color: $text-primary;
+      margin: 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+
+      .btn-primary {
+        @include button-primary;
+      }
+
+      .btn-secondary {
+        @include button-secondary;
+      }
+    }
+  }
+
+  .hierarchy-tree {
+    .ou-node {
+      margin-bottom: 16px;
+
+      .ou-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        background: $dark-surface;
+        border-radius: $border-radius;
+        margin-bottom: 8px;
+
+        .expand-btn {
+          background: transparent;
+          border: none;
+          color: $text-muted;
+          cursor: pointer;
+          padding: 4px;
+          transition: color 0.2s;
+
+          &:hover {
+            color: $text-primary;
+          }
+        }
+
+        .ou-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          cursor: pointer;
+          flex: 1;
+
+          input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+          }
+
+          .ou-name {
+            font-weight: 600;
+            color: $text-primary;
+          }
+
+          .ou-code {
+            font-size: $font-size-xs;
+            color: $text-muted;
+            font-family: monospace;
+          }
+        }
+      }
+
+      .divisions-list {
+        margin-left: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .division-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 8px 12px;
+          background: $dark-bg;
+          border-radius: $border-radius;
+          cursor: pointer;
+          transition: background 0.2s;
+
+          &:hover {
+            background: $dark-surface;
+          }
+
+          input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+          }
+
+          .division-name {
+            font-size: $font-size-sm;
+            color: $text-secondary;
+          }
+
+          .division-code {
+            font-size: $font-size-xs;
+            color: $text-muted;
+            font-family: monospace;
+          }
+        }
+      }
+    }
+  }
+}
+

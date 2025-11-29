@@ -1,0 +1,59 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.admin-panel {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  .admin-header {
+    margin-bottom: 32px;
+
+    h1 {
+      font-size: $font-size-2xl;
+      color: $text-primary;
+      margin: 0 0 8px 0;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      margin: 0;
+    }
+  }
+
+  .admin-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid $dark-border;
+
+    .tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        color: $text-primary;
+      }
+
+      &.active {
+        color: $primary-blue;
+        border-bottom-color: $primary-blue;
+      }
+    }
+  }
+
+    .admin-content {
+      @include card-style;
+      padding: 24px;
+      overflow: visible;
+      position: relative;
+    }
+}
+

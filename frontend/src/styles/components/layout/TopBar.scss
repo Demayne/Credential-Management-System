@@ -1,0 +1,43 @@
+@use '../../variables' as *;
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid $dark-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-xl;
+  padding-left: calc(280px + $spacing-xl);
+  z-index: 999;
+
+  .topbar-left {
+    flex: 1;
+  }
+
+  .topbar-center {
+    flex: 1;
+    text-align: center;
+
+    .page-title {
+      font-size: $font-size-xl;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0;
+    }
+  }
+
+  .topbar-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+}
+

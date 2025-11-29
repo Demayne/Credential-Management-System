@@ -1,0 +1,150 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.user-search {
+  @include card-style;
+  padding: 24px;
+
+  h3 {
+    font-size: $font-size-lg;
+    color: $text-primary;
+    margin: 0 0 16px 0;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .search-input {
+    width: 100%;
+    @include input-style;
+  }
+
+  .selected-user {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid $dark-border;
+
+    h4 {
+      font-size: $font-size-sm;
+      color: $text-secondary;
+      margin: 0 0 12px 0;
+    }
+
+    .user-card {
+      padding: 16px;
+      background: $dark-surface;
+      border-radius: $border-radius;
+      border: 1px solid $dark-border;
+
+      .user-name {
+        font-size: $font-size-base;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: 4px;
+      }
+
+      .user-email {
+        font-size: $font-size-sm;
+        color: $text-secondary;
+        margin-bottom: 8px;
+      }
+
+      .user-role {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: $border-radius-sm;
+        font-size: $font-size-xs;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+
+        &.role-admin {
+          background: rgba(239, 68, 68, 0.2);
+          color: $error;
+        }
+
+        &.role-management {
+          background: rgba(245, 158, 11, 0.2);
+          color: $warning;
+        }
+
+        &.role-user {
+          background: rgba(16, 185, 129, 0.2);
+          color: $success;
+        }
+      }
+
+      .clear-btn {
+        width: 100%;
+        padding: 8px;
+        background: transparent;
+        border: 1px solid $dark-border;
+        border-radius: $border-radius;
+        color: $text-secondary;
+        cursor: pointer;
+        font-size: $font-size-sm;
+        transition: all 0.2s;
+
+        &:hover {
+          border-color: $error;
+          color: $error;
+        }
+      }
+    }
+  }
+
+  .search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    max-width: calc(100% - 0px);
+    background: $dark-card;
+    border: 1px solid $dark-border;
+    border-radius: $border-radius;
+    box-shadow: $shadow-lg;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+
+    .loading,
+    .no-results {
+      padding: 16px;
+      text-align: center;
+      color: $text-muted;
+      font-size: $font-size-sm;
+    }
+
+    .user-result {
+      padding: 12px 16px;
+      background: transparent;
+      border-bottom: 1px solid $dark-border;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: $dark-surface;
+      }
+
+      .result-name {
+        font-size: $font-size-sm;
+        font-weight: 500;
+        color: $text-primary;
+        margin-bottom: 4px;
+      }
+
+      .result-email {
+        font-size: $font-size-xs;
+        color: $text-muted;
+      }
+    }
+  }
+}
+

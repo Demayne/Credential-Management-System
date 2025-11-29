@@ -1,0 +1,66 @@
+@use '../../variables' as *;
+
+.user-profile {
+  padding: 20px;
+  border-top: 1px solid $dark-border;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: $dark-surface;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $text-secondary;
+      flex-shrink: 0;
+    }
+
+    .user-details {
+      flex: 1;
+      min-width: 0;
+
+      .user-name {
+        font-size: $font-size-sm;
+        font-weight: 600;
+        color: $text-primary;
+        margin-bottom: 4px;
+      }
+
+      .user-role {
+        font-size: $font-size-xs;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid $dark-border;
+    border-radius: $border-radius;
+    color: $text-secondary;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: $font-size-sm;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: $error;
+      color: $error;
+    }
+  }
+}
+

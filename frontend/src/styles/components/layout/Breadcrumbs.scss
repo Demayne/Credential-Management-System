@@ -1,0 +1,37 @@
+@use '../../variables' as *;
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .breadcrumb-segment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .separator {
+      color: $text-muted;
+      font-size: 12px;
+    }
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $primary-blue;
+    }
+
+    &.current {
+      color: $text-primary;
+      font-weight: 500;
+    }
+  }
+}
+

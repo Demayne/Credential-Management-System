@@ -1,0 +1,84 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.user-table-container {
+  overflow-x: auto;
+  overflow-y: visible;
+  position: relative;
+}
+
+.user-table {
+  @include table-style;
+  position: relative;
+  overflow: visible;
+
+  thead {
+    overflow: visible;
+  }
+
+  tbody {
+    position: relative;
+    overflow: visible;
+  }
+
+  tr {
+    position: relative;
+    overflow: visible;
+  }
+
+  td {
+    position: relative;
+    overflow: visible;
+  }
+
+  .role-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    &.role-admin {
+      background: rgba(239, 68, 68, 0.2);
+      color: $error;
+    }
+
+    &.role-management {
+      background: rgba(245, 158, 11, 0.2);
+      color: $warning;
+    }
+
+    &.role-user {
+      background: rgba(16, 185, 129, 0.2);
+      color: $success;
+    }
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    .tag {
+      padding: 4px 8px;
+      background: $dark-surface;
+      color: $text-secondary;
+      border-radius: $border-radius-sm;
+      font-size: $font-size-xs;
+    }
+  }
+
+  .no-data {
+    color: $text-muted;
+    font-style: italic;
+  }
+}
+
+.loading,
+.empty-state {
+  padding: 32px;
+  text-align: center;
+  color: $text-secondary;
+}
+

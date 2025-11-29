@@ -1,0 +1,309 @@
+================================================================================
+COOLTECH CREDENTIAL MANAGEMENT SYSTEM - BACKEND RESOURCES
+================================================================================
+
+This document contains URLs and resources for all technologies, methods, and
+research used to build the backend of this application.
+
+================================================================================
+CORE TECHNOLOGIES & FRAMEWORKS
+================================================================================
+
+Express.js - Web Application Framework
+--------------------------------------
+- Official Documentation: https://expressjs.com/
+- API Reference: https://expressjs.com/en/4x/api.html
+- Routing Guide: https://expressjs.com/en/guide/routing.html
+- Middleware Guide: https://expressjs.com/en/guide/using-middleware.html
+- Best Practices: https://expressjs.com/en/advanced/best-practice-security.html
+
+MongoDB - NoSQL Database
+------------------------
+- Official Documentation: https://www.mongodb.com/docs/
+- MongoDB Manual: https://www.mongodb.com/docs/manual/
+- MongoDB University: https://university.mongodb.com/
+
+Mongoose - MongoDB Object Modeling
+-----------------------------------
+- Official Documentation: https://mongoosejs.com/docs/
+- Schema Guide: https://mongoosejs.com/docs/guide.html
+- Models Guide: https://mongoosejs.com/docs/models.html
+- Middleware (Hooks): https://mongoosejs.com/docs/middleware.html
+- Population: https://mongoosejs.com/docs/populate.html
+- Validation: https://mongoosejs.com/docs/validation.html
+
+Node.js - JavaScript Runtime
+------------------------------
+- Official Documentation: https://nodejs.org/en/docs/
+- Node.js API: https://nodejs.org/api/
+- Best Practices: https://github.com/goldbergyoni/nodebestpractices
+
+================================================================================
+AUTHENTICATION & SECURITY
+================================================================================
+
+JSON Web Tokens (JWT)
+---------------------
+- JWT.io: https://jwt.io/
+- jsonwebtoken Package: https://www.npmjs.com/package/jsonwebtoken
+- JWT Introduction: https://jwt.io/introduction
+- Best Practices: https://datatracker.ietf.org/doc/html/rfc8725
+
+bcrypt - Password Hashing
+--------------------------
+- bcryptjs Package: https://www.npmjs.com/package/bcryptjs
+- bcrypt Algorithm: https://en.wikipedia.org/wiki/Bcrypt
+- Password Hashing Best Practices: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+
+Crypto (Node.js Built-in) - AES Encryption
+--------------------------------------------
+- Node.js Crypto Module: https://nodejs.org/api/crypto.html
+- AES Encryption: https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+- AES-256-CBC: https://csrc.nist.gov/publications/detail/sp/800-38a/final
+
+Helmet.js - Security Headers
+-----------------------------
+- Helmet.js: https://helmetjs.github.io/
+- npm Package: https://www.npmjs.com/package/helmet
+- Security Headers Guide: https://owasp.org/www-project-secure-headers/
+
+express-rate-limit - Rate Limiting
+-----------------------------------
+- express-rate-limit: https://github.com/express-rate-limit/express-rate-limit
+- npm Package: https://www.npmjs.com/package/express-rate-limit
+- Rate Limiting Best Practices: https://www.cloudflare.com/learning/bots/what-is-rate-limiting/
+
+CORS - Cross-Origin Resource Sharing
+--------------------------------------
+- CORS Package: https://www.npmjs.com/package/cors
+- MDN CORS Guide: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+- CORS Explained: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors
+
+================================================================================
+VALIDATION & INPUT SANITIZATION
+================================================================================
+
+express-validator - Input Validation
+-------------------------------------
+- express-validator: https://express-validator.github.io/docs/
+- npm Package: https://www.npmjs.com/package/express-validator
+- Validation Rules: https://express-validator.github.io/docs/api/validation-chain/
+- Sanitization: https://express-validator.github.io/docs/api/sanitization-chain/
+
+================================================================================
+DATABASE MODELS & SCHEMAS
+================================================================================
+
+Mongoose Schema Types
+---------------------
+- Schema Types: https://mongoosejs.com/docs/schematypes.html
+- Schema Options: https://mongoosejs.com/docs/guide.html#options
+- Indexes: https://mongoosejs.com/docs/indexes.html
+- Virtuals: https://mongoosejs.com/docs/guide.html#virtuals
+
+Mongoose Methods & Statics
+---------------------------
+- Instance Methods: https://mongoosejs.com/docs/guide.html#methods
+- Static Methods: https://mongoosejs.com/docs/guide.html#statics
+- Query Helpers: https://mongoosejs.com/docs/guide.html#query-helpers
+
+Mongoose Middleware (Hooks)
+----------------------------
+- Pre/Post Hooks: https://mongoosejs.com/docs/middleware.html
+- Pre Save Hook: https://mongoosejs.com/docs/middleware.html#pre
+- Post Save Hook: https://mongoosejs.com/docs/middleware.html#post
+
+================================================================================
+API DESIGN & RESTFUL PRINCIPLES
+================================================================================
+
+REST API Design
+----------------
+- REST API Tutorial: https://restfulapi.net/
+- REST Best Practices: https://restfulapi.net/http-methods/
+- HTTP Status Codes: https://restfulapi.net/http-status-codes/
+- RESTful Resource Naming: https://restfulapi.net/resource-naming/
+
+API Documentation Standards
+----------------------------
+- OpenAPI Specification: https://swagger.io/specification/
+- API Documentation Best Practices: https://swagger.io/resources/articles/adopting-an-api-first-approach/
+
+================================================================================
+ERROR HANDLING & LOGGING
+================================================================================
+
+Express Error Handling
+-----------------------
+- Error Handling: https://expressjs.com/en/guide/error-handling.html
+- Error Handling Best Practices: https://www.joyent.com/node-js/production/design/errors
+
+Console Logging
+---------------
+- Node.js Console: https://nodejs.org/api/console.html
+- Logging Best Practices: https://www.loggly.com/ultimate-guide/node-logging-basics/
+
+================================================================================
+ENVIRONMENT VARIABLES & CONFIGURATION
+================================================================================
+
+dotenv - Environment Variables
+------------------------------
+- dotenv Package: https://www.npmjs.com/package/dotenv
+- Environment Variables Guide: https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs
+- 12-Factor App: https://12factor.net/config
+
+================================================================================
+PASSWORD RESET TOKEN MANAGEMENT
+================================================================================
+
+Crypto Random Bytes
+-------------------
+- crypto.randomBytes: https://nodejs.org/api/crypto.html#cryptorandombytessize-callback
+- Secure Random Generation: https://nodejs.org/api/crypto.html#cryptogetrandomvaluestypedarray
+
+Token Expiration & Cleanup
+---------------------------
+- MongoDB TTL Indexes: https://www.mongodb.com/docs/manual/core/index-ttl/
+- Token Expiration Best Practices: https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
+
+================================================================================
+ACTIVITY LOGGING & AUDIT TRAIL
+================================================================================
+
+MongoDB Indexing for Performance
+---------------------------------
+- MongoDB Indexes: https://www.mongodb.com/docs/manual/indexes/
+- Compound Indexes: https://www.mongodb.com/docs/manual/core/index-compound/
+- Index Performance: https://www.mongodb.com/docs/manual/applications/indexes/
+
+Audit Trail Best Practices
+---------------------------
+- Audit Logging: https://owasp.org/www-community/Auditing
+- Security Logging: https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+
+================================================================================
+ACCOUNT SECURITY FEATURES
+================================================================================
+
+Account Lockout Mechanism
+--------------------------
+- Account Lockout: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#account-lockout
+- Brute Force Protection: https://owasp.org/www-community/controls/Blocking_Brute_Force_Attacks
+
+Login Attempt Tracking
+-----------------------
+- Failed Login Tracking: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
+
+================================================================================
+ROLE-BASED ACCESS CONTROL (RBAC)
+================================================================================
+
+RBAC Implementation
+-------------------
+- RBAC Overview: https://en.wikipedia.org/wiki/Role-based_access_control
+- RBAC Best Practices: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+
+Middleware Pattern
+------------------
+- Express Middleware: https://expressjs.com/en/guide/using-middleware.html
+- Custom Middleware: https://expressjs.com/en/guide/writing-middleware.html
+
+================================================================================
+CREDENTIAL ENCRYPTION
+================================================================================
+
+AES-256-CBC Encryption
+---------------------
+- AES Encryption Standard: https://csrc.nist.gov/publications/detail/fips/197/final
+- CBC Mode: https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#CBC
+- Initialization Vector (IV): https://en.wikipedia.org/wiki/Initialization_vector
+
+Node.js Crypto Module
+---------------------
+- crypto.createCipheriv: https://nodejs.org/api/crypto.html#cryptocreatecipherivalgorithm-key-iv-options
+- crypto.createDecipheriv: https://nodejs.org/api/crypto.html#cryptocreatedecipherivalgorithm-key-iv-options
+
+================================================================================
+SEARCH & FILTERING
+================================================================================
+
+MongoDB Query Operators
+------------------------
+- Query Operators: https://www.mongodb.com/docs/manual/reference/operator/query/
+- Regular Expressions: https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+- $in Operator: https://www.mongodb.com/docs/manual/reference/operator/query/in/
+
+MongoDB Aggregation
+--------------------
+- Aggregation Pipeline: https://www.mongodb.com/docs/manual/core/aggregation-pipeline/
+- Aggregation Operators: https://www.mongodb.com/docs/manual/reference/operator/aggregation/
+
+================================================================================
+PAGINATION & LIMITING RESULTS
+================================================================================
+
+MongoDB Pagination
+------------------
+- Pagination: https://www.mongodb.com/docs/manual/reference/method/cursor.skip/
+- Limit & Skip: https://www.mongodb.com/docs/manual/reference/method/cursor.limit/
+- Efficient Pagination: https://www.mongodb.com/docs/manual/tutorial/iterate-a-cursor/
+
+================================================================================
+PRODUCTION DEPLOYMENT
+================================================================================
+
+Node.js Production Best Practices
+----------------------------------
+- Production Best Practices: https://expressjs.com/en/advanced/best-practice-performance.html
+- Security Best Practices: https://expressjs.com/en/advanced/best-practice-security.html
+- Performance: https://expressjs.com/en/advanced/best-practice-performance.html
+
+Environment Configuration
+--------------------------
+- NODE_ENV: https://nodejs.org/api/process.html#processenvnode_env
+- Production Checklist: https://github.com/goldbergyoni/nodebestpractices
+
+================================================================================
+TESTING & DEBUGGING
+================================================================================
+
+MongoDB Compass (GUI Tool)
+---------------------------
+- MongoDB Compass: https://www.mongodb.com/products/compass
+- Download: https://www.mongodb.com/try/download/compass
+
+Postman (API Testing)
+---------------------
+- Postman: https://www.postman.com/
+- API Testing Guide: https://learning.postman.com/docs/writing-scripts/test-scripts/
+
+================================================================================
+ADDITIONAL RESOURCES
+================================================================================
+
+MongoDB University (Free Courses)
+----------------------------------
+- MongoDB University: https://university.mongodb.com/
+- M001: MongoDB Basics: https://university.mongodb.com/courses/M001/about
+
+Express.js Learning Resources
+-------------------------------
+- Express.js Guide: https://expressjs.com/en/guide/routing.html
+- Express.js Examples: https://github.com/expressjs/express/tree/master/examples
+
+Node.js Learning Resources
+---------------------------
+- Node.js Guide: https://nodejs.org/en/docs/guides/
+- Node.js Best Practices: https://github.com/goldbergyoni/nodebestpractices
+
+Security Resources
+------------------
+- OWASP Top 10: https://owasp.org/www-project-top-ten/
+- OWASP Cheat Sheets: https://cheatsheetseries.owasp.org/
+- Node.js Security Checklist: https://blog.risingstack.com/node-js-security-checklist/
+
+================================================================================
+END OF BACKEND RESOURCES
+================================================================================
+

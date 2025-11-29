@@ -1,0 +1,487 @@
+================================================================================
+COOLTECH CREDENTIAL MANAGEMENT SYSTEM - FRONTEND RESOURCES
+================================================================================
+
+This document contains URLs and resources for all technologies, methods, and
+research used to build the frontend of this application.
+
+================================================================================
+CORE TECHNOLOGIES & FRAMEWORKS
+================================================================================
+
+React - JavaScript Library
+---------------------------
+- Official Documentation: https://react.dev/
+- React API Reference: https://react.dev/reference/react
+- React Hooks: https://react.dev/reference/react
+- React Router: https://reactrouter.com/
+- React Router Documentation: https://reactrouter.com/en/main
+
+Vite - Build Tool & Dev Server
+-------------------------------
+- Vite Official Site: https://vitejs.dev/
+- Vite Guide: https://vitejs.dev/guide/
+- Vite Configuration: https://vitejs.dev/config/
+- Vite Proxy Configuration: https://vitejs.dev/config/server-options.html#server-proxy
+
+Axios - HTTP Client
+-------------------
+- Axios Documentation: https://axios-http.com/docs/intro
+- Axios GitHub: https://github.com/axios/axios
+- Axios Request Config: https://axios-http.com/docs/req_config
+- Axios Interceptors: https://axios-http.com/docs/interceptors
+
+================================================================================
+STYLING & CSS
+================================================================================
+
+Sass/SCSS - CSS Preprocessor
+-----------------------------
+- Sass Official Site: https://sass-lang.com/
+- Sass Documentation: https://sass-lang.com/documentation/
+- SCSS Syntax: https://sass-lang.com/documentation/syntax
+- @use Rule: https://sass-lang.com/documentation/at-rules/use
+- Sass Variables: https://sass-lang.com/documentation/variables
+- Sass Mixins: https://sass-lang.com/documentation/at-rules/mixin
+- Sass Functions: https://sass-lang.com/documentation/modules
+
+CSS Modules (via SCSS)
+-----------------------
+- CSS Modules: https://github.com/css-modules/css-modules
+- SCSS Best Practices: https://sass-lang.com/documentation/style-guide
+
+================================================================================
+REACT HOOKS & STATE MANAGEMENT
+================================================================================
+
+useState Hook
+-------------
+- useState Hook: https://react.dev/reference/react/useState
+- State Management: https://react.dev/learn/managing-state
+
+useEffect Hook
+--------------
+- useEffect Hook: https://react.dev/reference/react/useEffect
+- Effect Cleanup: https://react.dev/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development
+
+useContext Hook
+---------------
+- useContext Hook: https://react.dev/reference/react/useContext
+- Context API: https://react.dev/learn/passing-data-deeply-with-context
+- Creating Context: https://react.dev/reference/react/createContext
+
+useCallback Hook
+----------------
+- useCallback Hook: https://react.dev/reference/react/useCallback
+- Memoization: https://react.dev/reference/react/useMemo
+
+useRef Hook
+-----------
+- useRef Hook: https://react.dev/reference/react/useRef
+- Refs and DOM: https://react.dev/learn/manipulating-the-dom-with-refs
+
+Custom Hooks
+------------
+- Custom Hooks: https://react.dev/learn/reusing-logic-with-custom-hooks
+- Hook Rules: https://react.dev/reference/rules/rules-of-hooks
+
+================================================================================
+ROUTING & NAVIGATION
+================================================================================
+
+React Router v6
+---------------
+- React Router Docs: https://reactrouter.com/en/main
+- Getting Started: https://reactrouter.com/en/main/start/overview
+- Route Configuration: https://reactrouter.com/en/main/route/route
+- useNavigate Hook: https://reactrouter.com/en/main/hooks/use-navigate
+- useParams Hook: https://reactrouter.com/en/main/hooks/use-params
+- useLocation Hook: https://reactrouter.com/en/main/hooks/use-location
+- Protected Routes: https://reactrouter.com/en/main/start/overview#protecting-routes
+
+================================================================================
+FORM HANDLING & VALIDATION
+================================================================================
+
+Controlled Components
+---------------------
+- Controlled Components: https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable
+- Form Handling: https://react.dev/reference/react-dom/components/form
+
+Input Validation
+----------------
+- Client-Side Validation: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation
+- HTML5 Validation: https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation
+
+Debouncing
+-----------
+- Debouncing Explained: https://www.freecodecamp.org/news/javascript-debounce-example/
+- useDebounce Hook: https://usehooks.com/useDebounce/
+
+================================================================================
+HTTP REQUESTS & API INTEGRATION
+================================================================================
+
+Axios Configuration
+-------------------
+- Axios Instance: https://axios-http.com/docs/instance
+- Axios Defaults: https://axios-http.com/docs/config_defaults
+
+Request Interceptors
+--------------------
+- Axios Interceptors: https://axios-http.com/docs/interceptors
+- Adding Headers: https://axios-http.com/docs/interceptors#request-interceptors
+
+Response Interceptors
+---------------------
+- Error Handling: https://axios-http.com/docs/handling_errors
+- Response Transformation: https://axios-http.com/docs/interceptors#response-interceptors
+
+================================================================================
+STATE MANAGEMENT PATTERNS
+================================================================================
+
+Context API
+-----------
+- React Context: https://react.dev/learn/passing-data-deeply-with-context
+- useContext Hook: https://react.dev/reference/react/useContext
+- Context Best Practices: https://kentcdodds.com/blog/how-to-use-react-context-effectively
+
+Local Storage
+-------------
+- localStorage API: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+- Storing Data: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage#examples
+
+================================================================================
+UI COMPONENTS & ICONS
+================================================================================
+
+React Icons
+-----------
+- React Icons: https://react-icons.github.io/react-icons/
+- Font Awesome Icons: https://react-icons.github.io/react-icons/icons/fa/
+- Icon Usage: https://react-icons.github.io/react-icons/search/
+
+================================================================================
+STYLING PATTERNS & ARCHITECTURE
+================================================================================
+
+BEM Methodology (Inspired)
+---------------------------
+- BEM: http://getbem.com/
+- BEM Introduction: http://getbem.com/introduction/
+
+SCSS Architecture
+------------------
+- SCSS File Organization: https://sass-lang.com/documentation/at-rules/use
+- SCSS Partials: https://sass-lang.com/documentation/at-rules/use#partials
+- SCSS Variables: https://sass-lang.com/documentation/variables
+- SCSS Mixins: https://sass-lang.com/documentation/at-rules/mixin
+
+CSS Variables (Custom Properties)
+----------------------------------
+- CSS Variables: https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
+- CSS Variables Guide: https://css-tricks.com/a-complete-guide-to-custom-properties/
+
+================================================================================
+RESPONSIVE DESIGN
+================================================================================
+
+CSS Grid
+--------
+- CSS Grid: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout
+- Grid Guide: https://css-tricks.com/snippets/css/complete-guide-grid/
+
+Flexbox
+-------
+- Flexbox: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout
+- Flexbox Guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+Media Queries
+-------------
+- Media Queries: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries
+- Responsive Design: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design
+
+================================================================================
+USER EXPERIENCE (UX) PATTERNS
+================================================================================
+
+Loading States
+--------------
+- Loading States: https://www.nngroup.com/articles/progress-indicators/
+- Skeleton Screens: https://www.nngroup.com/articles/skeleton-screens/
+
+Error Handling
+--------------
+- Error Boundaries: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
+- Error Messages: https://www.nngroup.com/articles/error-message-guidelines/
+
+Toast Notifications
+--------------------
+- Toast Notifications: https://www.nngroup.com/articles/notification-toast/
+- Notification Patterns: https://www.nngroup.com/articles/notification-toast/
+
+Modal Dialogs
+-------------
+- Modal Patterns: https://www.nngroup.com/articles/modal-nonmodal-dialog/
+- Accessibility: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+
+================================================================================
+ACCESSIBILITY (A11Y)
+================================================================================
+
+ARIA Attributes
+---------------
+- ARIA Guide: https://www.w3.org/WAI/ARIA/apg/
+- ARIA Labels: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
+
+Semantic HTML
+-------------
+- Semantic HTML: https://developer.mozilla.org/en-US/docs/Glossary/Semantics
+- HTML5 Semantic Elements: https://developer.mozilla.org/en-US/docs/Web/HTML/Element
+
+Keyboard Navigation
+--------------------
+- Keyboard Accessibility: https://webaim.org/techniques/keyboard/
+- Focus Management: https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets
+
+================================================================================
+PERFORMANCE OPTIMIZATION
+================================================================================
+
+React Performance
+-----------------
+- React Performance: https://react.dev/learn/render-and-commit
+- useMemo Hook: https://react.dev/reference/react/useMemo
+- useCallback Hook: https://react.dev/reference/react/useCallback
+- Code Splitting: https://react.dev/reference/react/lazy
+
+Bundle Optimization
+-------------------
+- Vite Optimization: https://vitejs.dev/guide/performance.html
+- Tree Shaking: https://vitejs.dev/guide/performance.html#chunking-strategy
+
+================================================================================
+SECURITY BEST PRACTICES
+================================================================================
+
+XSS Prevention
+--------------
+- XSS Prevention: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+- React XSS: https://react.dev/learn/escape-hatches#dangerously-setting-the-inner-html
+
+CSRF Protection
+---------------
+- CSRF Prevention: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+
+Token Storage
+-------------
+- localStorage Security: https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html#local-storage
+- JWT Storage: https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html
+
+================================================================================
+FORM VALIDATION PATTERNS
+================================================================================
+
+Client-Side Validation
+-----------------------
+- HTML5 Validation: https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation
+- Constraint Validation API: https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation
+
+Password Strength
+------------------
+- Password Strength Guidelines: https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
+- Password Requirements: https://www.nist.gov/password-guidelines
+
+================================================================================
+COMPONENT PATTERNS
+================================================================================
+
+Presentational vs Container Components
+---------------------------------------
+- Component Patterns: https://react.dev/learn/thinking-in-react
+- Container/Presentational Pattern: https://www.patterns.dev/react/presentational-container-pattern
+
+Compound Components
+-------------------
+- Compound Components: https://kentcdodds.com/blog/compound-components-with-react-hooks
+
+Render Props
+------------
+- Render Props: https://react.dev/reference/react/Component#render
+
+================================================================================
+HOOKS PATTERNS & CUSTOM HOOKS
+================================================================================
+
+Custom Hooks
+------------
+- Custom Hooks: https://react.dev/learn/reusing-logic-with-custom-hooks
+- Hook Rules: https://react.dev/reference/rules/rules-of-hooks
+
+useDebounce Hook
+-----------------
+- Debouncing: https://dmitripavlutin.com/react-throttle-debounce/
+- useDebounce Implementation: https://usehooks.com/useDebounce/
+
+================================================================================
+EVENT HANDLING
+================================================================================
+
+Event Handlers
+--------------
+- Event Handling: https://react.dev/learn/responding-to-events
+- Synthetic Events: https://react.dev/reference/react-dom/components/common#react-event-object
+
+Click Outside Detection
+------------------------
+- Click Outside: https://usehooks.com/useOnClickOutside/
+- Event Bubbling: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling
+
+================================================================================
+ANIMATIONS & TRANSITIONS
+================================================================================
+
+CSS Transitions
+---------------
+- CSS Transitions: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions
+- Transition Property: https://developer.mozilla.org/en-US/docs/Web/CSS/transition
+
+CSS Animations
+--------------
+- CSS Animations: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations
+- Animation Property: https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+
+================================================================================
+DARK THEME DESIGN
+================================================================================
+
+Dark Mode Patterns
+-------------------
+- Dark Mode: https://www.nngroup.com/articles/dark-mode/
+- Color Contrast: https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html
+
+Color Theory
+------------
+- Color Psychology: https://www.interaction-design.org/literature/topics/color-theory
+- Accessible Colors: https://webaim.org/resources/contrastchecker/
+
+================================================================================
+DATA FETCHING PATTERNS
+================================================================================
+
+useEffect for Data Fetching
+----------------------------
+- Data Fetching: https://react.dev/learn/synchronizing-with-effects#fetching-data
+- Effect Dependencies: https://react.dev/learn/lifecycle-of-reactive-effects#what-are-reactive-values
+
+Async/Await
+-----------
+- Async Functions: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+- Promises: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+Error Handling in Async Code
+------------------------------
+- Error Handling: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#error_handling
+- Try/Catch: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
+
+================================================================================
+LIST RENDERING & KEYS
+================================================================================
+
+Lists and Keys
+--------------
+- Rendering Lists: https://react.dev/learn/rendering-lists
+- Keys: https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key
+
+================================================================================
+CONDITIONAL RENDERING
+================================================================================
+
+Conditional Rendering
+---------------------
+- Conditional Rendering: https://react.dev/learn/conditional-rendering
+- Logical Operators: https://react.dev/learn/conditional-rendering#logical-and-operator-
+
+================================================================================
+PROPS & PROP TYPES
+================================================================================
+
+Props
+-----
+- Props: https://react.dev/learn/passing-props-to-a-component
+- Default Props: https://react.dev/reference/react/Component#static-defaultprops
+
+PropTypes (Optional)
+--------------------
+- PropTypes: https://react.dev/learn/typescript#adding-types-to-props
+- Type Checking: https://legacy.reactjs.org/docs/typechecking-with-proptypes.html
+
+================================================================================
+REFERENCE & DOM MANIPULATION
+================================================================================
+
+Refs
+----
+- Refs: https://react.dev/reference/react/useRef
+- DOM Refs: https://react.dev/learn/manipulating-the-dom-with-refs
+- Forwarding Refs: https://react.dev/reference/react/forwardRef
+
+================================================================================
+BUILD & DEPLOYMENT
+================================================================================
+
+Vite Build
+----------
+- Vite Build: https://vitejs.dev/guide/build.html
+- Production Build: https://vitejs.dev/guide/build.html#building-for-production
+
+Environment Variables
+---------------------
+- Vite Env Variables: https://vitejs.dev/guide/env-and-mode.html
+- Environment Modes: https://vitejs.dev/guide/env-and-mode.html#modes
+
+================================================================================
+TESTING (OPTIONAL)
+================================================================================
+
+React Testing Library
+----------------------
+- React Testing Library: https://testing-library.com/react
+- Testing Guide: https://react.dev/learn/testing
+
+Jest
+----
+- Jest: https://jestjs.io/
+- Jest with React: https://jestjs.io/docs/tutorial-react
+
+================================================================================
+ADDITIONAL LEARNING RESOURCES
+================================================================================
+
+React Official Tutorial
+------------------------
+- React Tutorial: https://react.dev/learn
+- Thinking in React: https://react.dev/learn/thinking-in-react
+
+MDN Web Docs
+-------------
+- MDN JavaScript: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+- MDN CSS: https://developer.mozilla.org/en-US/docs/Web/CSS
+- MDN HTML: https://developer.mozilla.org/en-US/docs/Web/HTML
+
+CSS-Tricks
+----------
+- CSS-Tricks: https://css-tricks.com/
+- Flexbox Guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+- Grid Guide: https://css-tricks.com/snippets/css/complete-guide-grid/
+
+Web.dev
+-------
+- Web.dev: https://web.dev/
+- Learn Web Development: https://web.dev/learn/
+
+================================================================================
+END OF FRONTEND RESOURCES
+================================================================================
+

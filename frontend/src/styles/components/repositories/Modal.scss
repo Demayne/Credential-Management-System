@@ -1,0 +1,241 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: $dark-card;
+  border: 1px solid $dark-border;
+  border-radius: $border-radius-lg;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $shadow-lg;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid $dark-border;
+
+  h3 {
+    margin: 0;
+    color: $text-primary;
+    font-size: $font-size-xl;
+  }
+
+  .modal-close {
+    background: transparent;
+    border: none;
+    color: $text-muted;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+}
+
+.modal-body {
+  padding: 24px;
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      background: $dark-surface;
+      border: 1px solid $dark-border;
+      border-radius: $border-radius;
+      color: $text-primary;
+      font-size: $font-size-sm;
+      transition: all 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      &.error {
+        border-color: $error;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .error-message {
+      display: block;
+      color: $error;
+      font-size: $font-size-xs;
+      margin-top: 4px;
+    }
+  }
+
+  .credential-detail {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .detail-value {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      span {
+        color: $text-primary;
+        font-size: $font-size-sm;
+      }
+
+      .password-value {
+        font-family: monospace;
+        background: $dark-surface;
+        padding: 8px 12px;
+        border-radius: $border-radius;
+        flex: 1;
+      }
+
+      a {
+        color: $primary-blue;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: color 0.2s;
+
+        &:hover {
+          color: $primary-light;
+        }
+      }
+
+      .copy-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: $dark-surface;
+        border: 1px solid $dark-border;
+        border-radius: $border-radius;
+        color: $text-secondary;
+        cursor: pointer;
+        font-size: $font-size-xs;
+        transition: all 0.2s;
+
+        &:hover {
+          background: $dark-border;
+          color: $text-primary;
+        }
+      }
+    }
+
+    .category-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(37, 99, 235, 0.2);
+      color: $primary-blue;
+      border-radius: $border-radius-sm;
+      font-size: $font-size-xs;
+      font-weight: 500;
+    }
+
+    .notes-value {
+      color: $text-primary;
+      font-size: $font-size-sm;
+      margin: 0;
+      padding: 12px;
+      background: $dark-surface;
+      border-radius: $border-radius;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .tag {
+        padding: 4px 10px;
+        background: $dark-surface;
+        color: $text-secondary;
+        border-radius: $border-radius-sm;
+        font-size: $font-size-xs;
+      }
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 24px;
+  border-top: 1px solid $dark-border;
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    border-radius: $border-radius;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    @include button-primary;
+  }
+
+  .btn-secondary {
+    @include button-secondary;
+  }
+}
+

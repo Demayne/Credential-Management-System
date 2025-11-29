@@ -1,0 +1,48 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.assignment-manager {
+  .assignment-header {
+    margin-bottom: 24px;
+
+    h2 {
+      font-size: $font-size-xl;
+      color: $text-primary;
+      margin: 0 0 8px 0;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: $font-size-sm;
+      margin: 0;
+    }
+  }
+
+  .assignment-content {
+    display: flex;
+    gap: 24px;
+
+    .assignment-sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: visible;
+    }
+
+    .assignment-main {
+      flex: 1;
+    }
+
+    .select-user-prompt {
+      @include card-style;
+      padding: 64px;
+      text-align: center;
+
+      p {
+        color: $text-secondary;
+        font-size: $font-size-lg;
+      }
+    }
+  }
+}
+
