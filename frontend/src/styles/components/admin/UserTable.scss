@@ -5,10 +5,16 @@
   overflow-x: auto;
   overflow-y: visible;
   position: relative;
+  
+  @media (max-width: $breakpoint-md) {
+    overflow-x: visible;
+    padding: $spacing-md;
+  }
 }
 
 .user-table {
   @include table-style;
+  @include responsive-table;
   position: relative;
   overflow: visible;
 
@@ -29,29 +35,35 @@
   td {
     position: relative;
     overflow: visible;
+    word-break: break-word;
   }
 
   .role-badge {
     display: inline-block;
-    padding: 4px 10px;
-    border-radius: $border-radius-sm;
+    padding: 6px 12px;
+    border-radius: $border-radius;
     font-size: $font-size-xs;
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: $shadow-sm;
 
     &.role-admin {
       background: rgba(239, 68, 68, 0.2);
       color: $error;
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     &.role-management {
       background: rgba(245, 158, 11, 0.2);
       color: $warning;
+      border: 1px solid rgba(245, 158, 11, 0.3);
     }
 
     &.role-user {
       background: rgba(16, 185, 129, 0.2);
       color: $success;
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
   }
 
@@ -59,19 +71,45 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    justify-content: flex-end;
+
+    @media (max-width: $breakpoint-md) {
+      justify-content: flex-start;
+    }
 
     .tag {
-      padding: 4px 8px;
+      padding: 4px 10px;
       background: $dark-surface;
       color: $text-secondary;
       border-radius: $border-radius-sm;
       font-size: $font-size-xs;
+      border: 1px solid $dark-border;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba($primary-blue, 0.1);
+        border-color: $primary-blue;
+        color: $primary-blue;
+      }
     }
   }
 
   .no-data {
     color: $text-muted;
     font-style: italic;
+    text-align: right;
+
+    @media (max-width: $breakpoint-md) {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    td[data-label="Actions"] {
+      padding-top: $spacing-md;
+      border-top: 1px solid rgba($dark-border, 0.5);
+      margin-top: $spacing-sm;
+    }
   }
 }
 

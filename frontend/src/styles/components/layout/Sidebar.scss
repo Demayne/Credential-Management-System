@@ -11,10 +11,27 @@
   display: flex;
   flex-direction: column;
   z-index: 1000;
-  transition: width 0.3s ease;
+  transition: transform 0.3s ease, width 0.3s ease;
+  box-shadow: $shadow-lg;
+
+  @media (max-width: $breakpoint-lg) {
+    transform: translateX(-100%);
+    width: 280px;
+    box-shadow: $shadow-xl;
+  }
+
+  &.mobile-open {
+    @media (max-width: $breakpoint-lg) {
+      transform: translateX(0);
+    }
+  }
 
   &.collapsed {
     width: 80px;
+
+    @media (max-width: $breakpoint-lg) {
+      width: 280px;
+    }
 
     .sidebar-logo .logo-text {
       display: none;
@@ -33,18 +50,30 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid $dark-border;
+    min-height: 72px;
 
     .sidebar-logo {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex: 1;
 
       .logo-text {
         font-size: $font-size-xl;
         font-weight: 700;
         color: $primary-blue;
         transition: opacity 0.3s;
+        background: linear-gradient(135deg, $primary-blue, $primary-light);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
+    }
+
+    .sidebar-controls {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
     }
 
     .collapse-btn {
@@ -55,12 +84,48 @@
       padding: 8px;
       border-radius: $border-radius;
       transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (max-width: $breakpoint-lg) {
+        display: none;
+      }
 
       &:hover {
         background: $dark-surface;
         color: $text-primary;
       }
     }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: $text-secondary;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: $border-radius;
+      transition: all 0.2s;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-size-lg;
+
+      @media (max-width: $breakpoint-lg) {
+        display: flex;
+      }
+
+      &:hover {
+        background: rgba($error, 0.1);
+        color: $error;
+      }
+    }
+  }
+}
+
+.mobile-only {
+  @media (min-width: $breakpoint-lg + 1px) {
+    display: none !important;
   }
 }
 

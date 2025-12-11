@@ -3,21 +3,35 @@
 .role-dropdown {
   position: relative;
   display: inline-block;
+  width: 100%;
+
+  @media (max-width: $breakpoint-md) {
+    width: 100%;
+  }
 
   .role-dropdown-btn {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
-    padding: 6px 12px;
+    padding: 8px 12px;
     background: $dark-surface;
     border: 1px solid $dark-border;
     border-radius: $border-radius;
     color: $text-primary;
     cursor: pointer;
     transition: all 0.2s;
+    width: 100%;
+    font-size: $font-size-sm;
+
+    @media (max-width: $breakpoint-md) {
+      width: 100%;
+      justify-content: center;
+    }
 
     &:hover {
       border-color: $primary-blue;
+      background: rgba($primary-blue, 0.05);
     }
   }
 
@@ -33,6 +47,13 @@
     min-width: 150px;
     overflow: hidden;
 
+    @media (max-width: $breakpoint-md) {
+      right: auto;
+      left: 0;
+      width: 100%;
+      min-width: 100%;
+    }
+
     .dropdown-item {
       display: flex;
       width: 100%;
@@ -43,6 +64,7 @@
       cursor: pointer;
       transition: background 0.2s;
       text-align: left;
+      font-size: $font-size-sm;
 
       &:hover {
         background: $dark-surface;
@@ -50,6 +72,8 @@
 
       &.active {
         background: rgba(37, 99, 235, 0.1);
+        color: $primary-blue;
+        font-weight: 600;
       }
     }
   }

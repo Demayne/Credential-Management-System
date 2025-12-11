@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaEnvelope, FaLock } from 'react-icons/fa'
+import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'
 import '../../../styles/components/auth/LoginForm.scss'
 
 const LoginForm = ({ onSubmit, loading }) => {
@@ -9,6 +9,7 @@ const LoginForm = ({ onSubmit, loading }) => {
     password: ''
   })
   const [errors, setErrors] = useState({})
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -72,22 +73,42 @@ const LoginForm = ({ onSubmit, loading }) => {
         <div className="input-wrapper">
           <FaLock className="input-icon" />
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             placeholder="Enter your password"
             className={errors.password ? 'error' : ''}
+            aria-describedby={errors.password ? 'password-error' : undefined}
+            autoComplete="current-password"
           />
+          <button
+            type="button"
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            tabIndex={0}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
         </div>
-        {errors.password && <span className="error-message">{errors.password}</span>}
+        {errors.password && (
+          <span id="password-error" className="error-message" role="alert">
+            {errors.password}
+          </span>
+        )}
         <div className="forgot-password-link">
           <Link to="/forgot-password">Forgot password?</Link>
         </div>
       </div>
 
-      <button type="submit" className="btn-primary" disabled={loading}>
+      <button 
+        type="submit" 
+        className="btn-primary" 
+        disabled={loading}
+        aria-label="Login to your account"
+      >
         {loading ? 'Logging in...' : 'Login'}
       </button>
     </form>

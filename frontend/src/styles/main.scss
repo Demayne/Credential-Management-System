@@ -35,3 +35,40 @@ textarea {
   font-family: inherit;
 }
 
+// Skip Link for Accessibility
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $primary-blue;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 10000;
+  border-radius: 0 0 $border-radius $border-radius;
+  font-weight: 600;
+  transition: top 0.3s;
+
+  &:focus {
+    top: 0;
+    outline: 3px solid rgba($primary-blue, 0.5);
+    outline-offset: 2px;
+  }
+}
+
+// Focus styles for keyboard navigation
+*:focus-visible {
+  outline: 2px solid $primary-blue;
+  outline-offset: 2px;
+  border-radius: $border-radius-sm;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba($primary-blue, 0.5);
+  outline-offset: 2px;
+}
+

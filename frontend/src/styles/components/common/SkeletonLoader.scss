@@ -1,0 +1,175 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.skeleton-loader {
+  width: 100%;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+%skeleton-base {
+  background: linear-gradient(
+    90deg,
+    $dark-surface 0%,
+    rgba($dark-border, 0.5) 50%,
+    $dark-surface 100%
+  );
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: $border-radius;
+}
+
+.skeleton-line {
+  @extend %skeleton-base;
+  height: 12px;
+  margin-bottom: $spacing-sm;
+  width: 100%;
+
+  &.skeleton-title {
+    height: 20px;
+    width: 60%;
+    margin-bottom: $spacing-md;
+  }
+
+  &.skeleton-subtitle {
+    height: 14px;
+    width: 40%;
+  }
+
+  &.skeleton-short {
+    width: 70%;
+  }
+}
+
+.skeleton-avatar {
+  @extend %skeleton-base;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.skeleton-small {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.skeleton-icon {
+  @extend %skeleton-base;
+  width: 24px;
+  height: 24px;
+  border-radius: $border-radius-sm;
+}
+
+.skeleton-button {
+  @extend %skeleton-base;
+  height: 36px;
+  width: 100px;
+  border-radius: $border-radius;
+}
+
+.skeleton-text-group {
+  flex: 1;
+  margin-left: $spacing-md;
+}
+
+// Table Skeleton
+.skeleton-table {
+  @include card-style;
+  overflow: hidden;
+}
+
+.skeleton-table-header {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-bottom: 1px solid $dark-border;
+  background: $dark-surface;
+}
+
+.skeleton-table-row {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-bottom: 1px solid rgba($dark-border, 0.5);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.skeleton-cell {
+  @extend %skeleton-base;
+  height: 16px;
+  flex: 1;
+
+  &.skeleton-header-cell {
+    height: 14px;
+  }
+}
+
+// Card Skeleton
+.skeleton-card {
+  @include card-style;
+  padding: $spacing-lg;
+}
+
+.skeleton-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.skeleton-card-body {
+  margin-bottom: $spacing-md;
+}
+
+.skeleton-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: $spacing-md;
+  border-top: 1px solid $dark-border;
+}
+
+// List Skeleton
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  @include card-style;
+}
+
+// Grid Skeleton
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-md;
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Default Skeleton
+.skeleton-default {
+  padding: $spacing-lg;
+}
+

@@ -1,0 +1,60 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.empty-state {
+  @include card-style;
+  padding: $spacing-2xl;
+  text-align: center;
+  max-width: 500px;
+  margin: $spacing-xl auto;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xl;
+  }
+
+  .empty-state-icon {
+    font-size: 64px;
+    color: $text-muted;
+    margin-bottom: $spacing-lg;
+    opacity: 0.6;
+    animation: float 3s ease-in-out infinite;
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 48px;
+    }
+  }
+
+  .empty-state-title {
+    color: $text-primary;
+    font-size: $font-size-xl;
+    font-weight: 600;
+    margin: 0 0 $spacing-sm 0;
+  }
+
+  .empty-state-message {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    line-height: 1.6;
+    margin: 0 0 $spacing-xl 0;
+  }
+
+  .empty-state-action {
+    @include button-primary;
+    margin-top: $spacing-md;
+
+    &:focus {
+      outline: 3px solid rgba($primary-blue, 0.5);
+      outline-offset: 2px;
+    }
+  }
+}
+

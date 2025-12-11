@@ -1,0 +1,133 @@
+@use '../../variables' as *;
+@use '../../mixins' as *;
+
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  background: $dark-bg;
+}
+
+.error-boundary-content {
+  @include card-style;
+  max-width: 600px;
+  width: 100%;
+  padding: $spacing-2xl;
+  text-align: center;
+  border: 2px solid rgba($error, 0.3);
+
+  .error-icon {
+    font-size: 64px;
+    color: $error;
+    margin-bottom: $spacing-lg;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  h2 {
+    color: $text-primary;
+    font-size: $font-size-2xl;
+    margin: 0 0 $spacing-md 0;
+    font-weight: 700;
+  }
+
+  .error-message {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    margin: 0 0 $spacing-xl 0;
+    line-height: 1.6;
+  }
+
+  .error-details {
+    margin: $spacing-xl 0;
+    text-align: left;
+    background: $dark-surface;
+    border-radius: $border-radius;
+    padding: $spacing-md;
+    border: 1px solid $dark-border;
+
+    summary {
+      color: $text-secondary;
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: $spacing-sm;
+      user-select: none;
+
+      &:hover {
+        color: $text-primary;
+      }
+    }
+
+    .error-stack {
+      color: $text-muted;
+      font-size: $font-size-xs;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin: $spacing-sm 0 0 0;
+      padding: $spacing-sm;
+      background: rgba($error, 0.1);
+      border-radius: $border-radius-sm;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  }
+
+  .error-actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    margin-top: $spacing-xl;
+    flex-wrap: wrap;
+
+    button {
+      @include button-primary;
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      padding: 12px 24px;
+      font-size: $font-size-sm;
+
+      &:focus {
+        outline: 3px solid rgba($primary-blue, 0.5);
+        outline-offset: 2px;
+      }
+    }
+
+    .home-button {
+      @include button-secondary;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-xl;
+
+    .error-icon {
+      font-size: 48px;
+    }
+
+    h2 {
+      font-size: $font-size-xl;
+    }
+
+    .error-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+

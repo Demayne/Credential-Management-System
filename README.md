@@ -1,71 +1,46 @@
 # CoolTech Credential Management System
 
-A production-grade MERN stack application for managing credentials across organizational units and divisions. Built with enterprise-level security and a premium UI/UX.
+A production-grade MERN stack application for managing credentials across organizational units and divisions. Built with enterprise-level security, premium UI/UX, and comprehensive access control.
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
 - [Quick Start](#quick-start)
-- [Demo Accounts](#demo-accounts)
+- [Environment Setup](#environment-setup)
 - [Project Structure](#project-structure)
-- [API Endpoints](#api-endpoints)
+- [Demo Accounts](#demo-accounts)
+- [API Documentation](#api-documentation)
 - [User Roles & Permissions](#user-roles--permissions)
-- [Documentation](#documentation)
-- [Resources](#resources)
+- [Security Features](#security-features)
+- [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
-- [License](#license)
 
-## ✨ Features
+## Prerequisites
 
-### Core Features
-- **Secure Authentication**: JWT-based authentication with refresh token rotation
-- **Role-Based Access Control**: Three user roles (user, management, admin) with granular permissions
-- **Credential Management**: AES-256-CBC encrypted credential storage and management
-- **Organizational Structure**: Support for multiple Organizational Units (OUs) with 12+ divisions each
-- **Repository System**: Division-based credential repositories with access control
-- **Admin Panel**: Comprehensive user management and assignment tools
-- **Modern UI**: Dark theme with SCSS, responsive design, premium UX
+Before you begin, ensure you have the following installed:
 
-### Enterprise Features
-- **Password Reset**: Forgot password and reset functionality
-- **Password Strength Indicator**: Real-time password strength validation
-- **Password Generator**: Secure password generation tool
-- **Activity Logging**: Comprehensive audit trail for all user actions
-- **Credential Expiration**: Track and alert on credential expiration
-- **Global Search**: Search credentials across all accessible repositories
-- **System Statistics**: Dashboard statistics for admins
-- **Rate Limiting**: Protection against brute force attacks
-- **Account Lockout**: Automatic account lockout after failed login attempts
+- **Node.js** (v16 or higher) - [Download](https://nodejs.org/)
+- **MongoDB** (v5.0 or higher) - [Download](https://www.mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (cloud)
+- **npm** (comes with Node.js) or **yarn**
 
-## 🛠 Tech Stack
+### Verify Installation
 
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JWT (jsonwebtoken)
-- **Password Hashing**: bcryptjs (12 salt rounds)
-- **Encryption**: Node.js crypto (AES-256-CBC)
-- **Validation**: express-validator
-- **Security**: Helmet.js, CORS, express-rate-limit
+```bash
+node --version  # Should be v16 or higher
+npm --version   # Should be v8 or higher
+mongod --version  # If using local MongoDB
+```
 
-### Frontend
-- **Framework**: React 18
-- **Routing**: React Router v6
-- **HTTP Client**: Axios
-- **Styling**: SCSS (Sass) with modular architecture
-- **Build Tool**: Vite
-- **State Management**: React Context API
+## Quick Start
 
-## 🚀 Quick Start
+### 1. Clone the Repository
 
-### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB (running locally or connection string)
-- npm or yarn
+```bash
+git clone https://github.com/Demayne/Credential-Management-System.git
+cd Credential-Management-System
+```
 
-### Backend Setup
+### 2. Backend Setup
 
 ```bash
 # Navigate to backend directory
@@ -74,19 +49,21 @@ cd backend
 # Install dependencies
 npm install
 
-# Create .env file (see SETUP_GUIDE.md for details)
+# Create .env file (see Environment Setup section)
 # Or run: npm run setup-env
 
 # Seed the database with demo accounts and sample data
 npm run seed
 
-# Start the backend server
+# Start the backend server (development mode)
 npm run dev
 ```
 
-The backend will run on `http://localhost:5000`
+The backend API will be running on `http://localhost:5000`
 
-### Frontend Setup
+### 3. Frontend Setup
+
+Open a **new terminal window** and run:
 
 ```bash
 # Navigate to frontend directory
@@ -99,125 +76,155 @@ npm install
 npm run dev
 ```
 
-The frontend will run on `http://localhost:3000`
+The frontend application will be running on `http://localhost:3000`
 
-### Environment Variables
+### 4. Access the Application
 
-Create a `.env` file in the `backend` directory:
+1. Open your browser and navigate to `http://localhost:3000`
+2. Login with one of the demo accounts (see [Demo Accounts](#demo-accounts))
+3. Start managing credentials!
+
+## Environment Setup
+
+### Backend Environment Variables
+
+Create a `.env` file in the `backend` directory with the following variables:
 
 ```env
+# Server Configuration
 NODE_ENV=development
 PORT=5000
+
+# MongoDB Connection
+# For local MongoDB:
 MONGO_URI=mongodb://localhost:27017/cooltech-dev
-JWT_SECRET=your-secret-key-here
-JWT_REFRESH_SECRET=your-refresh-secret-key-here
+# For MongoDB Atlas:
+# MONGO_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/cooltech-dev?retryWrites=true&w=majority
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-in-production-min-32-chars
+JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-in-production-min-32-chars
 JWT_EXPIRE=30m
 JWT_REFRESH_EXPIRE=7d
+
+# Frontend URL (for CORS)
 FRONTEND_URL=http://localhost:3000
+
+# Encryption Key (must be exactly 32 characters for AES-256-CBC)
 ENCRYPTION_KEY=your-32-character-encryption-key!
 ```
 
-See `SETUP_GUIDE.md` for detailed setup instructions.
+### Quick Setup Script
 
-## 👥 Demo Accounts
+You can use the automated setup script:
 
-The seed script creates three demo accounts for testing:
+```bash
+cd backend
+npm run setup-env
+```
 
-### Admin User
-- **Email**: `admin@cooltech.com`
-- **Password**: `Admin123!`
-- **Role**: Admin (full access to all features)
+### MongoDB Atlas Setup (Cloud Database)
 
-### Management User
-- **Email**: `manager@cooltech.com`
-- **Password**: `Manager123!`
-- **Role**: Management (can read, add, and update credentials)
+1. Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create a new cluster
+3. Get your connection string from Atlas dashboard
+4. Use the helper script to update your `.env` file:
 
-### Regular User
-- **Email**: `user@cooltech.com`
-- **Password**: `User123!`
-- **Role**: User (can read and add credentials)
+```bash
+cd backend
+npm run update-atlas
+```
 
-See `DEMO_ACCOUNTS.txt` for complete list of demo accounts.
+Or manually update `MONGO_URI` in `backend/.env` with your Atlas connection string.
 
-## 📁 Project Structure
+**Important**: Whitelist your IP address in Atlas Network Access settings.
+
+## Project Structure
 
 ```
-.
+Credential-Management-System/
 ├── backend/
 │   ├── config/              # Database configuration
-│   ├── middleware/          # Auth, RBAC, activity logging middleware
-│   ├── models/              # Mongoose schemas (User, CredentialRepository, etc.)
+│   ├── middleware/          # Auth, RBAC, activity logging
+│   ├── models/              # Mongoose schemas
 │   ├── routes/              # API route handlers
-│   │   ├── auth.js          # Authentication endpoints
-│   │   ├── repositories.js  # Credential repository endpoints
-│   │   ├── admin.js         # Admin operation endpoints
-│   │   ├── utils.js         # Utility endpoints (password generator, etc.)
-│   │   └── statistics.js    # Statistics endpoints
-│   ├── scripts/             # Database seeding and utility scripts
-│   ├── utils/               # Utility functions (token generation, password generator)
-│   ├── server.js            # Express server entry point
-│   └── resources.txt       # Backend technology resources and documentation
+│   ├── scripts/             # Database seeding & utilities
+│   ├── utils/               # Helper functions
+│   └── server.js            # Express server entry point
 │
 ├── frontend/
 │   ├── src/
 │   │   ├── components/      # React components
-│   │   │   ├── admin/       # Admin panel components
-│   │   │   ├── auth/        # Authentication components
-│   │   │   ├── common/      # Shared components (Toast, LoadingSpinner, etc.)
-│   │   │   ├── dashboard/   # Dashboard components
-│   │   │   ├── layout/      # Layout components (Sidebar, TopBar)
-│   │   │   └── repositories/# Repository view components
 │   │   ├── contexts/        # React Context providers
 │   │   ├── services/        # API service layer
-│   │   ├── styles/          # SCSS stylesheets (modular architecture)
+│   │   ├── styles/          # SCSS stylesheets
 │   │   └── utils/           # Utility functions
-│   ├── vite.config.js       # Vite configuration
-│   └── resources.txt        # Frontend technology resources and documentation
+│   └── vite.config.js       # Vite configuration
 │
-└── Documentation files (see Documentation section)
+└── README.md                # This file
 ```
 
-## 🔌 API Endpoints
+## Demo Accounts
 
-### Authentication
-- `POST /api/auth/register` - Register new user (default role: 'user')
-- `POST /api/auth/login` - Login user (returns JWT + refresh token)
+After running `npm run seed`, you can use these accounts:
+
+### Admin Account
+- **Email**: `admin@cooltech.com`
+- **Password**: `Admin123!`
+- **Role**: Admin (full access to all features)
+
+### Management Account
+- **Email**: `manager@cooltech.com`
+- **Password**: `Manager123!`
+- **Role**: Management (can read, add, and update credentials)
+
+### Regular User Account
+- **Email**: `user@cooltech.com`
+- **Password**: `User123!`
+- **Role**: User (can read and add credentials)
+
+See `DEMO_ACCOUNTS.txt` for the complete list of demo accounts.
+
+## API Documentation
+
+### Authentication Endpoints
+
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user (returns JWT tokens)
 - `POST /api/auth/refresh` - Refresh JWT token
 - `GET /api/auth/me` - Get current authenticated user
 - `POST /api/auth/forgot-password` - Request password reset
 - `POST /api/auth/reset-password` - Reset password with token
-- `POST /api/auth/change-password` - Change password (authenticated users)
+- `POST /api/auth/change-password` - Change password (authenticated)
 
-### Credential Repositories
+### Credential Repository Endpoints
+
 - `GET /api/repositories/accessible` - Get user's accessible repositories
-- `GET /api/repositories/search` - Search credentials across accessible repositories
-- `GET /api/repositories/:divisionId` - Get division's credential repository
-- `POST /api/repositories/:divisionId/credentials` - Add new credential
+- `GET /api/repositories/search` - Search credentials globally
+- `GET /api/repositories/:divisionId` - Get division's repository
+- `POST /api/repositories/:divisionId/credentials` - Add credential
 - `PUT /api/repositories/credentials/:credentialId` - Update credential
-- `DELETE /api/repositories/credentials/:credentialId` - Soft delete credential
+- `DELETE /api/repositories/credentials/:credentialId` - Delete credential
 - `GET /api/repositories/credentials/:credentialId/access` - View credential (decrypts password)
 
-### Admin Operations
+### Admin Endpoints
+
 - `GET /api/admin/users` - Get all users (paginated, filtered)
-- `GET /api/admin/users/:userId` - Get specific user details
+- `GET /api/admin/users/:userId` - Get user details
 - `PUT /api/admin/users/:userId/role` - Change user role
 - `POST /api/admin/users/:userId/assignments` - Assign user to OU/division
-- `DELETE /api/admin/users/:userId/assignments` - Remove user from OU/division
-- `GET /api/admin/organizational-structure` - Get full OU/division hierarchy
+- `DELETE /api/admin/users/:userId/assignments` - Remove assignment
+- `GET /api/admin/organizational-structure` - Get OU/division hierarchy
 - `GET /api/admin/audit-logs` - Get system audit logs
 
-### Utilities
+### Utility Endpoints
+
 - `POST /api/utils/generate-password` - Generate secure password
 - `POST /api/utils/check-password-strength` - Check password strength
 
-### Statistics
-- `GET /api/statistics/dashboard` - Get dashboard statistics (admin only)
-- `GET /api/statistics/activity-logs` - Get activity logs
+## User Roles & Permissions
 
-## 🔐 User Roles & Permissions
-
-### Normal User
+### User (Default Role)
 - ✅ View credential repositories (assigned divisions only)
 - ✅ Add new credentials
 - ✅ View credential details (with decrypted password)
@@ -225,64 +232,23 @@ See `DEMO_ACCOUNTS.txt` for complete list of demo accounts.
 - ❌ Delete credentials
 - ❌ Manage users or assignments
 
-### Management User
-- ✅ All Normal User permissions
+### Management
+- ✅ All User permissions
 - ✅ Update existing credentials
 - ✅ Delete credentials
 - ❌ Manage users or assignments
 
-### Admin User
-- ✅ All Management User permissions
+### Admin
+- ✅ All Management permissions
 - ✅ Assign/unassign users to Organizational Units and Divisions
 - ✅ Change user roles
 - ✅ View all repositories (all divisions)
 - ✅ Access admin panel
 - ✅ View system statistics and audit logs
 
-## 📚 Documentation
+## Security Features
 
-### Setup & Configuration
-- **[SETUP_GUIDE.md](./SETUP_GUIDE.md)** - Detailed setup instructions
-- **[GITHUB_PUSH_GUIDE.md](./GITHUB_PUSH_GUIDE.md)** - Guide for pushing to GitHub
-- **[DEMO_ACCOUNTS.txt](./DEMO_ACCOUNTS.txt)** - Complete list of demo accounts
-
-### Project Documentation
-- **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Project overview and architecture
-- **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** - Implementation details
-- **[ENTERPRISE_FEATURES.md](./ENTERPRISE_FEATURES.md)** - Enterprise features documentation
-- **[ENHANCEMENTS_SUMMARY.md](./ENHANCEMENTS_SUMMARY.md)** - Enhancements overview
-
-### Compliance & Requirements
-- **[TASK_COMPLIANCE_REPORT.md](./TASK_COMPLIANCE_REPORT.md)** - Task requirements compliance
-- **[REQUIREMENTS_CHECKLIST.md](./REQUIREMENTS_CHECKLIST.md)** - Requirements checklist
-- **[SPECIFICATIONS_COMPLIANCE.md](./SPECIFICATIONS_COMPLIANCE.md)** - Specifications compliance
-
-### Troubleshooting
-- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** - Common issues and solutions
-- **[RATE_LIMIT_FIX.md](./RATE_LIMIT_FIX.md)** - Rate limiting configuration
-- **[FIXES_APPLIED.md](./FIXES_APPLIED.md)** - Applied fixes documentation
-
-### Task Requirements
-- **[Task_overview.txt](./Task_overview.txt)** - Original task overview
-- **[Task_prompt2.txt](./Task_prompt2.txt)** - Detailed task specifications
-
-## 📖 Resources
-
-### Technology Resources
-- **[backend/resources.txt](./backend/resources.txt)** - Backend technology resources, documentation URLs, and research references
-- **[frontend/resources.txt](./frontend/resources.txt)** - Frontend technology resources, documentation URLs, and research references
-
-These files contain comprehensive lists of:
-- Official documentation URLs
-- Tutorials and guides
-- Best practices
-- Security resources
-- API references
-- Learning resources
-
-## 🔒 Security Features
-
-- **JWT Authentication**: Secure token-based authentication with refresh token rotation
+- **JWT Authentication**: Secure token-based auth with refresh token rotation
 - **Password Hashing**: bcrypt with 12 salt rounds
 - **Credential Encryption**: AES-256-CBC encryption for stored passwords
 - **Rate Limiting**: Protection against brute force attacks
@@ -293,30 +259,81 @@ These files contain comprehensive lists of:
 - **Activity Logging**: Comprehensive audit trail
 - **Role-Based Access Control**: Granular permission system
 
-## 🧪 Testing
+## Troubleshooting
 
-### Backend Scripts
+### Common Issues
+
+#### Backend won't start
+- Check if MongoDB is running (local) or connection string is correct (Atlas)
+- Verify all required environment variables are set in `backend/.env`
+- Check if port 5000 is available
+
+#### Frontend won't start
+- Check if port 3000 is available
+- Verify Node.js version is v16 or higher
+- Delete `node_modules` and run `npm install` again
+
+#### Login fails
+- Run the troubleshooting script: `npm run troubleshoot-login` (in backend directory)
+- Verify admin account exists: `npm run check-admin`
+- Reset admin password: `npm run reset-admin-password`
+
+#### MongoDB Connection Issues
+- **Local MongoDB**: Ensure MongoDB service is running
+- **MongoDB Atlas**: 
+  - Verify connection string is correct
+  - Whitelist your IP address in Atlas Network Access
+  - Check if database name matches (`cooltech-dev`)
+
+### Helper Scripts
+
 ```bash
-# Reset admin password
-npm run reset-admin-password
+# In backend directory:
+
+# Troubleshoot login issues
+npm run troubleshoot-login
 
 # Check admin account status
 npm run check-admin
 
+# Reset admin password
+npm run reset-admin-password
+
 # Reset admin lock status
 npm run reset-admin
+
+# Update MongoDB Atlas connection string
+npm run update-atlas
 ```
 
-## 📝 Code Documentation
+## Production Deployment
 
-The codebase includes comprehensive JSDoc-style comments:
-- **Models**: Schema definitions with field descriptions
-- **Middleware**: Authentication and authorization logic
-- **Routes**: API endpoint documentation
-- **Components**: React component descriptions
-- **Utilities**: Function documentation
+### Build for Production
 
-## 🤝 Contributing
+**Frontend:**
+```bash
+cd frontend
+npm run build
+```
+
+The production build will be in `frontend/dist/`
+
+**Backend:**
+```bash
+cd backend
+NODE_ENV=production npm start
+```
+
+### Environment Variables for Production
+
+Ensure all environment variables are set with production values:
+- Use strong, unique secrets for `JWT_SECRET` and `JWT_REFRESH_SECRET`
+- Set `NODE_ENV=production`
+- Use production MongoDB connection string
+- Update `FRONTEND_URL` to your production domain
+- Use a secure 32-character `ENCRYPTION_KEY`
+
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
@@ -324,22 +341,16 @@ The codebase includes comprehensive JSDoc-style comments:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 ISC
 
-## 👤 Author
+## Author
 
 **Demayne**
 
 - GitHub: [@Demayne](https://github.com/Demayne)
 
-## 🙏 Acknowledgments
-
-- Design inspiration from N-Able/CertifyMe professional interfaces
-- Built following MERN stack best practices
-- Security guidelines from OWASP
-
 ---
 
-**Note**: This is a production-grade application built for CoolTech's credential management needs. Ensure all environment variables are properly configured before deployment.
+**Note**: This is a production-grade application. Ensure all environment variables are properly configured before deployment. For detailed setup instructions, see `SETUP_GUIDE.md`.

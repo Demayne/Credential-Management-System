@@ -26,14 +26,14 @@ const UserTable = ({ users, loading, onRoleChange }) => {
         <tbody>
           {users.map(user => (
             <tr key={user._id}>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>
+              <td data-label="Username">{user.username}</td>
+              <td data-label="Email">{user.email}</td>
+              <td data-label="Role">
                 <span className={`role-badge role-${user.role}`}>
                   {user.role}
                 </span>
               </td>
-              <td>
+              <td data-label="Organizational Units">
                 {user.organizationalUnits?.length > 0 ? (
                   <div className="tags">
                     {user.organizationalUnits.map(ou => (
@@ -44,7 +44,7 @@ const UserTable = ({ users, loading, onRoleChange }) => {
                   <span className="no-data">None</span>
                 )}
               </td>
-              <td>
+              <td data-label="Divisions">
                 {user.divisions?.length > 0 ? (
                   <div className="tags">
                     {user.divisions.map(div => (
@@ -55,7 +55,7 @@ const UserTable = ({ users, loading, onRoleChange }) => {
                   <span className="no-data">None</span>
                 )}
               </td>
-              <td>
+              <td data-label="Actions">
                 <RoleDropdown
                   currentRole={user.role}
                   userId={user._id}

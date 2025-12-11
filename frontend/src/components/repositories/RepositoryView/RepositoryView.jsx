@@ -30,7 +30,7 @@ import CredentialTable from './CredentialTable'
 import AddCredentialModal from '../CredentialModals/AddCredentialModal'
 import EditCredentialModal from '../CredentialModals/EditCredentialModal'
 import ViewCredentialModal from '../CredentialModals/ViewCredentialModal'
-import LoadingSpinner from '../../common/LoadingSpinner'
+import SkeletonLoader from '../../common/SkeletonLoader'
 import '../../../styles/components/repositories/RepositoryView.scss'
 
 const RepositoryView = () => {
@@ -100,7 +100,24 @@ const RepositoryView = () => {
       success('Credential deleted successfully')
       loadRepository()
     } catch (err) {
-      error(err.response?.data?.message || 'Failed to delete credential')
+      error(err.response?.data?.message || err.userMessage || 'Failed to delete credential')
+    }
+  }
+
+  const handleBulkDelete = async (credentialIds) => {
+    if (!window.confirm(`Are you sure you want to delete ${credentialIds.length} credential(s)?`)) {
+      return
+    }
+
+    try {
+      // Delete credentials one by one (could be optimized with bulk endpoint)
+      await Promise.all(
+        credentialIds.map(id => api.delete(`/repositories/credentials/${id}`))
+      )
+      success(`${credentialIds.length} credential(s) deleted successfully`)
+      loadRepository()
+    } catch (err) {
+      error(err.response?.data?.message || err.userMessage || 'Failed to delete credentials')
     }
   }
 
@@ -115,7 +132,7 @@ const RepositoryView = () => {
   }
 
   if (loading) {
-    return <LoadingSpinner />
+    return <SkeletonLoader type="table" count={5} />
   }
 
   if (!repository) {
@@ -124,7 +141,12 @@ const RepositoryView = () => {
 
   return (
     <div className="repository-view">
-      <RepositoryHeader repository={repository} />
+      <RepositoryHeader 
+        repository={repository}
+        onExport={(format) => {
+          success(`Credentials exported as ${format.toUpperCase()} successfully`)
+        }}
+      />
       <CredentialTable
         credentials={repository.credentials || []}
         userRole={user?.role}
@@ -134,6 +156,7 @@ const RepositoryView = () => {
           setShowEditModal(true)
         }}
         onDelete={handleDeleteCredential}
+        onBulkDelete={handleBulkDelete}
       />
       
       {user?.role && ['user', 'management', 'admin'].includes(user.role) && (

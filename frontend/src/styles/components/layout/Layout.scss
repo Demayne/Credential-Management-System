@@ -4,6 +4,7 @@
   display: flex;
   min-height: 100vh;
   background: $dark-bg;
+  position: relative;
 }
 
 .layout-content {
@@ -11,11 +12,41 @@
   margin-left: 280px;
   display: flex;
   flex-direction: column;
+  transition: margin-left 0.3s ease;
+
+  @media (max-width: $breakpoint-lg) {
+    margin-left: 0;
+  }
 }
 
 .main-content {
   flex: 1;
   padding: $spacing-xl;
   margin-top: 72px;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-md;
+    margin-top: 64px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: $spacing-sm;
+  }
+}
+
+.sidebar-overlay {
+  display: none;
+
+  @media (max-width: $breakpoint-lg) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(4px);
+  }
 }
 

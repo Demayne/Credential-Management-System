@@ -110,3 +110,76 @@
   }
 }
 
+@mixin responsive-table {
+  @media (max-width: $breakpoint-md) {
+    thead {
+      display: none;
+    }
+
+    tbody {
+      display: block;
+    }
+
+    tr {
+      display: block;
+      margin-bottom: $spacing-md;
+      background: $dark-card;
+      border-radius: $border-radius-lg;
+      border: 1px solid $dark-border;
+      padding: $spacing-md;
+      box-shadow: $shadow-md;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+        background: $dark-card;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    td {
+      display: block;
+      padding: $spacing-sm $spacing-md;
+      border-bottom: 1px solid rgba($dark-border, 0.3);
+      text-align: right;
+      position: relative;
+      padding-left: 50%;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &::before {
+        content: attr(data-label);
+        position: absolute;
+        left: $spacing-md;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 600;
+        color: $text-secondary;
+        text-transform: uppercase;
+        font-size: $font-size-xs;
+        letter-spacing: 0.05em;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      // Handle cells without data-label
+      &:not([data-label])::before {
+        display: none;
+      }
+
+      &:not([data-label]) {
+        padding-left: $spacing-md;
+        text-align: left;
+      }
+    }
+  }
+}
+

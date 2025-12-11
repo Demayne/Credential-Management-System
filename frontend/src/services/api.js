@@ -18,6 +18,7 @@
  */
 
 import axios from 'axios'
+import { isNetworkError, isTimeoutError, getErrorMessage } from '../utils/networkErrorHandler'
 
 /**
  * Axios Instance Configuration
@@ -25,9 +26,11 @@ import axios from 'axios'
  * Creates a configured Axios instance with:
  * - Base URL: '/api' (proxied to backend via Vite config)
  * - Default JSON content type header
+ * - Request timeout of 30 seconds
  */
 const api = axios.create({
   baseURL: '/api',
+  timeout: 30000, // 30 seconds
   headers: {
     'Content-Type': 'application/json'
   }
@@ -68,11 +71,23 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Handle authentication errors
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       localStorage.removeItem('refreshToken')
       window.location.href = '/login'
+      return Promise.reject(error)
     }
+
+    // Enhance error with user-friendly message
+    if (error.response) {
+      error.userMessage = getErrorMessage(error)
+    } else if (isNetworkError(error) || isTimeoutError(error)) {
+      error.userMessage = getErrorMessage(error)
+    } else {
+      error.userMessage = 'An unexpected error occurred. Please try again.'
+    }
+
     return Promise.reject(error)
   }
 )
