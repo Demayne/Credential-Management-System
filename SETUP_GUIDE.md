@@ -126,7 +126,7 @@ After running the seed script, you can use these accounts:
 ## Project Structure
 
 ```
-Task 35 - Authentication 2/
+Credential Management System
 ├── backend/
 │   ├── config/          # Database configuration
 │   ├── middleware/      # Auth middleware
