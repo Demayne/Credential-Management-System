@@ -23,6 +23,22 @@ This application provides a secure repository system where organizations can sto
 - **Security Teams**: Review audit logs and monitor credential access patterns
 - **System Administrators**: Maintain credential repositories and ensure proper access controls
 
+---
+
+## Live Demo
+
+Use the accounts below to explore each permission level. All data is seeded for demonstration purposes and resets periodically.
+
+| Role        | Email                  | Password    | Access Level                                                |
+|-------------|------------------------|-------------|-------------------------------------------------------------|
+| **Admin**   | admin@cooltech.com     | Admin123!   | Full system access — user management, all repos, audit logs |
+| **Manager** | manager@cooltech.com   | Manager123! | Read, add, update, and delete credentials                   |
+| **User**    | user@cooltech.com      | User123!    | Read and add credentials only                               |
+
+> These are read-only seeded demo accounts for portfolio demonstration. Do not store real credentials.
+
+---
+
 ## Prerequisites
 
 - **Node.js** v16 or higher - [Download](https://nodejs.org/)
@@ -36,6 +52,8 @@ node --version  # v16+
 npm --version    # v8+
 mongod --version # If using local MongoDB
 ```
+
+---
 
 ## Quick Start
 
@@ -68,7 +86,9 @@ npm run dev        # Starts development server on http://localhost:3000
 
 ### 4. Access Application
 
-Navigate to `http://localhost:3000` and login with demo credentials (see [Demo Accounts](#demo-accounts)).
+Navigate to `http://localhost:3000` and log in using the demo credentials in the [Live Demo](#live-demo) section above.
+
+---
 
 ## Environment Configuration
 
@@ -102,6 +122,8 @@ ENCRYPTION_KEY=your-32-character-encryption-key!
 3. Run helper script: `npm run update-atlas` (in backend directory)
 4. Whitelist your IP address in Atlas Network Access settings
 
+---
+
 ## Project Structure
 
 ```
@@ -127,17 +149,7 @@ Credential-Management-System/
 └── README.md
 ```
 
-## Demo Accounts
-
-After running `npm run seed`, use these accounts:
-
-| Role | Email | Password | Capabilities |
-|------|-------|----------|--------------|
-| Admin | `admin@cooltech.com` | `Admin123!` | Full system access, user management, all repositories |
-| Management | `manager@cooltech.com` | `Manager123!` | Read, add, update, delete credentials |
-| User | `user@cooltech.com` | `User123!` | Read and add credentials |
-
-See `DEMO_ACCOUNTS.txt` for complete list.
+---
 
 ## API Endpoints
 
@@ -176,6 +188,8 @@ See `DEMO_ACCOUNTS.txt` for complete list.
 - `POST /api/utils/generate-password` - Generate secure password
 - `POST /api/utils/check-password-strength` - Validate password strength
 
+---
+
 ## User Roles & Permissions
 
 ### User (Default)
@@ -202,6 +216,8 @@ See `DEMO_ACCOUNTS.txt` for complete list.
 - View system statistics and audit logs
 - Manage organizational structure
 
+---
+
 ## Security Implementation
 
 - **Authentication**: JWT tokens with refresh token rotation
@@ -213,6 +229,8 @@ See `DEMO_ACCOUNTS.txt` for complete list.
 - **Input Validation**: Request validation using express-validator
 - **Security Headers**: Helmet.js for HTTP security headers
 - **Audit Logging**: Comprehensive activity logging for all credential access
+
+---
 
 ## Troubleshooting
 
@@ -226,8 +244,8 @@ See `DEMO_ACCOUNTS.txt` for complete list.
 **Login failures:**
 ```bash
 cd backend
-npm run troubleshoot-login  # Diagnose login issues
-npm run check-admin         # Verify admin account exists
+npm run troubleshoot-login   # Diagnose login issues
+npm run check-admin          # Verify admin account exists
 npm run reset-admin-password # Reset admin password
 ```
 
@@ -253,12 +271,14 @@ npm run reset-admin-password # Reset admin password
 
 ```bash
 # In backend directory:
-npm run troubleshoot-login  # Diagnose authentication issues
-npm run check-admin         # Check admin account status
+npm run troubleshoot-login   # Diagnose authentication issues
+npm run check-admin          # Check admin account status
 npm run reset-admin-password # Reset admin password
-npm run reset-admin         # Reset admin lock status
-npm run update-atlas        # Update MongoDB Atlas connection string
+npm run reset-admin          # Reset admin lock status
+npm run update-atlas         # Update MongoDB Atlas connection string
 ```
+
+---
 
 ## Production Deployment
 
@@ -286,6 +306,8 @@ NODE_ENV=production npm start
 - Update `FRONTEND_URL` to production domain
 - Use secure 32-character `ENCRYPTION_KEY`
 
+---
+
 ## Technology Stack
 
 **Backend:**
@@ -302,6 +324,8 @@ NODE_ENV=production npm start
 - SCSS
 - Vite
 
+---
+
 ## Contributing
 
 1. Fork the repository
@@ -310,15 +334,21 @@ NODE_ENV=production npm start
 4. Push to branch (`git push origin feature/feature-name`)
 5. Open Pull Request
 
+---
+
 ## License
 
 ISC
 
+---
+
 ## Author
 
-**Demayne**
+**Demayne Govender**
 
 - GitHub: [@Demayne](https://github.com/Demayne)
+- Portfolio: [demaynegovenderprofile.vercel.app](https://demaynegovenderprofile.vercel.app)
+- LinkedIn: [linkedin.com/in/demayne-govender-452890316](https://www.linkedin.com/in/demayne-govender-452890316)
 
 ---
 
