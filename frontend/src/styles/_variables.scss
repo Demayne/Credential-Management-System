@@ -1,17 +1,20 @@
-// Color Palette - Professional Dark Theme
-$primary-blue: #2563eb;
-$primary-dark: #1e40af;
-$primary-light: #3b82f6;
+// Brand - Deep Indigo
+$primary-blue: #6366f1;
+$primary-dark: #4f46e5;
+$primary-light: #818cf8;
 
-$dark-bg: #0f172a;
-$dark-surface: #1e293b;
-$dark-card: #334155;
-$dark-border: #475569;
+// Surfaces (layered depth)
+$dark-bg: #070b14;         // deepest canvas
+$dark-surface: #0f1623;    // main surface
+$dark-card: #141d2e;       // cards
+$dark-border: #1e2d45;     // borders + subtle bg
 
-$text-primary: #f8fafc;
-$text-secondary: #cbd5e1;
-$text-muted: #94a3b8;
+// Text
+$text-primary: #eef2ff;
+$text-secondary: #8892a4;
+$text-muted: #4b5566;
 
+// Status
 $success: #10b981;
 $warning: #f59e0b;
 $error: #ef4444;
@@ -19,14 +22,16 @@ $info: #06b6d4;
 
 // Typography
 $font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
 $font-size-base: 1rem;
 $font-size-lg: 1.125rem;
 $font-size-xl: 1.25rem;
 $font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
 
-// Spacing
+// Spacing (keep same)
 $spacing-xs: 0.25rem;
 $spacing-sm: 0.5rem;
 $spacing-md: 1rem;
@@ -34,23 +39,38 @@ $spacing-lg: 1.5rem;
 $spacing-xl: 2rem;
 $spacing-2xl: 3rem;
 
-// Border Radius
-$border-radius-sm: 4px;
-$border-radius: 6px;
-$border-radius-lg: 8px;
+// Border Radius (increased — more modern)
+$border-radius-sm: 6px;
+$border-radius: 10px;
+$border-radius-lg: 14px;
+$border-radius-xl: 20px;
+$border-radius-2xl: 28px;
+$border-radius-pill: 9999px;
 
-// Shadows
-$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+// Shadows (deeper, more premium)
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.55);
+$shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.65);
 
-// Responsive Breakpoints
+// Category colors
+$cat-wordpress: #0ea5e9;
+$cat-server: #f97316;
+$cat-database: #10b981;
+$cat-financial: #eab308;
+$cat-api: #a855f7;
+$cat-other: #64748b;
+
+// Transitions
+$transition-fast: 0.15s ease;
+$transition-base: 0.2s ease;
+$transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Breakpoints (keep same)
 $breakpoint-xs: 480px;
 $breakpoint-sm: 640px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
 $breakpoint-2xl: 1536px;
-

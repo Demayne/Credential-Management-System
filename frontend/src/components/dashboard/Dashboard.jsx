@@ -19,6 +19,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
 import api from '../../services/api'
 import WelcomeCard from './WelcomeCard'
+import VaultStats from './VaultStats'
 import RepositoryGrid from './RepositoryGrid'
 import '../../styles/components/dashboard/Dashboard.scss'
 
@@ -59,6 +60,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <WelcomeCard user={user} />
+      <VaultStats divisions={divisions} loading={loading} />
       <RepositoryGrid
         divisions={divisions}
         loading={loading}

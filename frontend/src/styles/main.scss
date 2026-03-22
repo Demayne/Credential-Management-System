@@ -47,11 +47,11 @@ textarea {
   z-index: 10000;
   border-radius: 0 0 $border-radius $border-radius;
   font-weight: 600;
-  transition: top 0.3s;
+  transition: top $transition-slow;
 
   &:focus {
     top: 0;
-    outline: 3px solid rgba($primary-blue, 0.5);
+    outline: 3px solid rgba(99, 102, 241, 0.5);
     outline-offset: 2px;
   }
 }
@@ -68,7 +68,6 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgba($primary-blue, 0.5);
+  outline: 3px solid rgba(99, 102, 241, 0.45);
   outline-offset: 2px;
 }
-

@@ -355,8 +355,9 @@ router.put('/credentials/:credentialId', protect, authorize('management', 'admin
       });
     }
 
-    // Update credential fields
-    Object.keys(req.body).forEach(key => {
+    // Update only whitelisted fields to prevent field injection
+    const ALLOWED_UPDATE_FIELDS = ['title', 'category', 'url', 'username', 'password', 'notes', 'tags'];
+    ALLOWED_UPDATE_FIELDS.forEach(key => {
       if (req.body[key] !== undefined) {
         credential[key] = req.body[key];
       }
@@ -456,95 +457,6 @@ router.delete('/credentials/:credentialId', protect, authorize('management', 'ad
     res.status(500).json({
       success: false,
       message: 'Server error'
-    });
-  }
-});
-
-// @route   GET /api/repositories/search
-// @desc    Search credentials across accessible repositories
-// @access  Private
-router.get('/search', protect, async (req, res) => {
-  try {
-    const { q } = req.query;
-    
-    if (!q || q.trim().length < 2) {
-      return res.json({
-        success: true,
-        credentials: []
-      });
-    }
-
-    const searchTerm = q.trim();
-    const searchRegex = new RegExp(searchTerm, 'i');
-
-    // Get user's accessible divisions
-    const user = await User.findById(req.user._id)
-      .populate('divisions', '_id');
-
-    let divisionIds = [];
-    
-    if (user.role === 'admin') {
-      // Admin can search all divisions
-      const allDivisions = await Division.find({ isActive: true }).select('_id');
-      divisionIds = allDivisions.map(d => d._id);
-    } else {
-      // Regular users can only search their assigned divisions
-      divisionIds = user.divisions.map(div => 
-        div._id ? div._id : div
-      );
-    }
-
-    // Find repositories for accessible divisions
-    const repositories = await CredentialRepository.find({
-      division: { $in: divisionIds }
-    })
-      .populate('division', 'name code organizationalUnit');
-
-    // Search credentials across all accessible repositories
-    const matchingCredentials = [];
-    
-    repositories.forEach(repo => {
-      const matched = (repo.credentials || []).filter(cred => {
-        if (cred.isActive === false) return false;
-        
-        return (
-          searchRegex.test(cred.title) ||
-          searchRegex.test(cred.username) ||
-          searchRegex.test(cred.url) ||
-          searchRegex.test(cred.category) ||
-          (cred.notes && searchRegex.test(cred.notes)) ||
-          (cred.tags && cred.tags.some(tag => searchRegex.test(tag)))
-        );
-      });
-
-      matched.forEach(cred => {
-        matchingCredentials.push({
-          ...cred.toObject(),
-          division: {
-            _id: repo.division._id,
-            name: repo.division.name,
-            code: repo.division.code,
-            organizationalUnit: repo.division.organizationalUnit
-          },
-          repositoryId: repo._id
-        });
-      });
-    });
-
-    // Limit results to 20
-    const limitedResults = matchingCredentials.slice(0, 20);
-
-    res.json({
-      success: true,
-      credentials: limitedResults,
-      total: matchingCredentials.length
-    });
-  } catch (error) {
-    console.error('Search credentials error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 });

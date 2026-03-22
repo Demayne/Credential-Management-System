@@ -7,8 +7,10 @@
     label {
       display: block;
       color: $text-secondary;
-      font-size: $font-size-sm;
-      font-weight: 500;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
       margin-bottom: 8px;
     }
 
@@ -19,25 +21,28 @@
 
       .input-icon {
         position: absolute;
-        left: 12px;
+        left: 14px;
         color: $text-muted;
         font-size: 14px;
+        z-index: 1;
       }
 
       input {
         width: 100%;
-        padding: 12px 40px 12px 40px;
-        background: $dark-surface;
-        border: 1px solid $dark-border;
+        padding: 12px 40px 12px 42px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.10);
         border-radius: $border-radius;
         color: $text-primary;
         font-size: $font-size-sm;
-        transition: all 0.2s;
+        height: 44px;
+        transition: border-color $transition-base, box-shadow $transition-base, background $transition-base;
 
         &:focus {
           outline: none;
           border-color: $primary-blue;
-          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+          background: rgba(99, 102, 241, 0.05);
+          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
         }
 
         &::placeholder {
@@ -46,6 +51,7 @@
 
         &.error {
           border-color: $error;
+          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
         }
       }
 
@@ -60,13 +66,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: color 0.2s;
+        transition: color $transition-base;
         border-radius: $border-radius-sm;
         font-size: $font-size-base;
 
         &:hover {
-          color: $text-primary;
-          background: rgba($dark-border, 0.3);
+          color: $primary-light;
         }
 
         &:focus {
@@ -77,10 +82,12 @@
     }
 
     .error-message {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 4px;
       color: $error;
       font-size: $font-size-xs;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .forgot-password-link {
@@ -88,14 +95,14 @@
       text-align: right;
 
       a {
-        color: $primary-blue;
+        color: $primary-light;
         font-size: $font-size-xs;
+        font-weight: 500;
         text-decoration: none;
-        transition: color 0.2s;
+        transition: color $transition-base;
 
         &:hover {
-          color: $primary-light;
-          text-decoration: underline;
+          color: $text-primary;
         }
       }
     }
@@ -103,27 +110,45 @@
 
   .btn-primary {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
+    height: 46px;
     background: linear-gradient(135deg, $primary-blue, $primary-dark);
     color: white;
     border: none;
     border-radius: $border-radius;
     font-weight: 600;
     font-size: $font-size-sm;
+    letter-spacing: 0.3px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all $transition-base;
     margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0);
+      transition: background $transition-fast;
+    }
 
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, $primary-light, $primary-blue);
       transform: translateY(-1px);
-      box-shadow: $shadow-lg;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.45);
+
+      &::before {
+        background: rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
     }
 
     &:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
     }
   }
 }
-

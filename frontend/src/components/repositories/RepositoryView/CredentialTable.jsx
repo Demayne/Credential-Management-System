@@ -117,7 +117,7 @@ const CredentialTable = ({ credentials = [], userRole, onView, onEdit, onDelete,
                 )}
                 <td data-label="Title">{credential.title}</td>
               <td data-label="Category">
-                <span className="category-badge">{credential.category}</span>
+                <span className="category-badge" data-category={credential.category}>{credential.category}</span>
               </td>
               <td data-label="URL">
                 <a href={credential.url} target="_blank" rel="noopener noreferrer" className="url-link">

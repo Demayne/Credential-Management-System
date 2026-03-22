@@ -13,35 +13,54 @@
     position: absolute;
     left: 12px;
     color: $text-muted;
-    font-size: 14px;
+    font-size: 13px;
     z-index: 1;
+    pointer-events: none;
   }
 
   .search-input {
-    padding: 8px 36px 8px 36px;
-    background: $dark-surface;
-    border: 1px solid $dark-border;
-    border-radius: $border-radius;
+    padding: 8px 34px 8px 34px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: $border-radius-pill;
     color: $text-primary;
     font-size: $font-size-sm;
-    width: 300px;
-    transition: all 0.2s;
+    width: 240px;
+    transition: all $transition-slow;
+    height: 38px;
 
     &:focus {
       outline: none;
-      border-color: $primary-blue;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-      width: 400px;
+      border-color: rgba(99, 102, 241, 0.5);
+      background: rgba(99, 102, 241, 0.06);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+      width: 360px;
     }
 
     &::placeholder {
       color: $text-muted;
     }
+
+    @media (max-width: $breakpoint-md) {
+      width: 180px;
+
+      &:focus {
+        width: 220px;
+      }
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      width: 140px;
+
+      &:focus {
+        width: 170px;
+      }
+    }
   }
 
   .search-clear {
     position: absolute;
-    right: 8px;
+    right: 10px;
     background: transparent;
     border: none;
     color: $text-muted;
@@ -49,8 +68,9 @@
     padding: 4px;
     display: flex;
     align-items: center;
-    transition: color 0.2s;
+    transition: color $transition-base;
     z-index: 1;
+    border-radius: $border-radius-sm;
 
     &:hover {
       color: $text-primary;
@@ -66,29 +86,36 @@
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  width: 500px;
-  max-height: 500px;
+  width: 480px;
+  max-height: 480px;
   background: $dark-card;
-  border: 1px solid $dark-border;
-  border-radius: $border-radius;
-  box-shadow: $shadow-lg;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-xl;
   z-index: 1000;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 
+  @media (max-width: $breakpoint-sm) {
+    width: calc(100vw - 32px);
+    right: -10px;
+  }
+
   .search-results-header {
-    padding: 12px 16px;
-    border-bottom: 1px solid $dark-border;
-    color: $text-secondary;
-    font-size: $font-size-xs;
-    font-weight: 500;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: $text-muted;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
     background: $dark-surface;
   }
 
   .search-loading,
   .search-no-results {
-    padding: 32px;
+    padding: 40px;
     text-align: center;
     color: $text-muted;
     font-size: $font-size-sm;
@@ -96,16 +123,16 @@
 
   .search-results-list {
     overflow-y: auto;
-    max-height: 450px;
+    max-height: 430px;
 
     .search-result-item {
       padding: 12px 16px;
-      border-bottom: 1px solid $dark-border;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background $transition-base;
 
       &:hover {
-        background: $dark-surface;
+        background: rgba(255, 255, 255, 0.04);
       }
 
       &:last-child {
@@ -125,7 +152,7 @@
           font-size: 10px;
           color: $text-muted;
           opacity: 0;
-          transition: opacity 0.2s;
+          transition: opacity $transition-base;
         }
       }
 
@@ -136,17 +163,18 @@
       .result-details {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         margin-bottom: 4px;
 
         .result-category {
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
           padding: 2px 8px;
-          background: rgba(37, 99, 235, 0.2);
-          color: $primary-blue;
-          border-radius: $border-radius-sm;
-          font-size: $font-size-xs;
-          font-weight: 500;
+          border-radius: $border-radius-pill;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.3px;
+          text-transform: uppercase;
         }
 
         .result-division {
@@ -164,7 +192,7 @@
         .result-username {
           color: $text-secondary;
           font-size: $font-size-xs;
-          font-family: monospace;
+          font-family: $font-mono;
         }
 
         .result-url {
@@ -179,4 +207,3 @@
     }
   }
 }
-

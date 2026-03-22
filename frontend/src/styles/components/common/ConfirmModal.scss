@@ -1,0 +1,134 @@
+@use '../../variables' as *;
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20000;
+  padding: $spacing-md;
+}
+
+.confirm-modal {
+  background: linear-gradient(145deg, rgba(20, 29, 46, 0.98), rgba(15, 22, 35, 0.99));
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: $border-radius-xl;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: $shadow-xl, 0 0 0 1px rgba(99, 102, 241, 0.06);
+  animation: confirmPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 28px 20px 22px;
+  }
+}
+
+@keyframes confirmPop {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.confirm-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 22px;
+
+  &--danger {
+    background: rgba(239, 68, 68, 0.12);
+    color: $error;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+  }
+
+  &--warning {
+    background: rgba(245, 158, 11, 0.12);
+    color: $warning;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+  }
+}
+
+.confirm-title {
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0 0 10px;
+  letter-spacing: -0.2px;
+}
+
+.confirm-message {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.confirm-btn {
+  padding: 10px 24px;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-base;
+  min-width: 100px;
+  letter-spacing: 0.2px;
+
+  &--cancel {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: $text-secondary;
+
+    &:hover {
+      background: $dark-card;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: $text-primary;
+    }
+
+    &:focus {
+      outline: 2px solid $primary-blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &--danger {
+    background: linear-gradient(135deg, $error, #dc2626);
+    border: none;
+    color: white;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+    }
+
+    &:focus {
+      outline: 2px solid rgba(239, 68, 68, 0.6);
+      outline-offset: 2px;
+    }
+  }
+
+  &--warning {
+    background: linear-gradient(135deg, $warning, #d97706);
+    border: none;
+    color: white;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+    }
+  }
+}

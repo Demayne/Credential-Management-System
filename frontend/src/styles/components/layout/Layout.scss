@@ -9,10 +9,10 @@
 
 .layout-content {
   flex: 1;
-  margin-left: 280px;
+  margin-left: 260px;
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.3s ease;
+  transition: margin-left $transition-slow;
 
   @media (max-width: $breakpoint-lg) {
     margin-left: 0;
@@ -22,11 +22,11 @@
 .main-content {
   flex: 1;
   padding: $spacing-xl;
-  margin-top: 72px;
+  margin-top: 64px;
 
   @media (max-width: $breakpoint-md) {
     padding: $spacing-md;
-    margin-top: 64px;
+    margin-top: 60px;
   }
 
   @media (max-width: $breakpoint-sm) {
@@ -44,9 +44,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.65);
     z-index: 999;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 }
-

@@ -40,7 +40,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 // Validate required environment variables
-const requiredEnvVars = ['JWT_SECRET', 'JWT_REFRESH_SECRET', 'MONGO_URI'];
+const requiredEnvVars = ['JWT_SECRET', 'JWT_REFRESH_SECRET', 'MONGO_URI', 'ENCRYPTION_KEY'];
 const missingVars = requiredEnvVars.filter(varName => !process.env[varName] || process.env[varName].trim() === '');
 
 if (missingVars.length > 0) {
@@ -51,6 +51,12 @@ if (missingVars.length > 0) {
   console.error('JWT_SECRET=your-secret-key');
   console.error('JWT_REFRESH_SECRET=your-refresh-secret-key');
   console.error('MONGO_URI=mongodb://localhost:27017/cooltech-dev');
+  process.exit(1);
+}
+
+if (process.env.ENCRYPTION_KEY.length < 32) {
+  console.error('❌ ENCRYPTION_KEY must be at least 32 characters long for AES-256 encryption.');
+  console.error('Generate one with: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
   process.exit(1);
 }
 
@@ -118,7 +124,15 @@ app.use('/api/statistics', require('./routes/statistics'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'Server is running' });
+  const mongoose = require('mongoose');
+  const dbState = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  res.json({
+    success: true,
+    message: 'Server is running',
+    environment: process.env.NODE_ENV || 'development',
+    database: dbState[mongoose.connection.readyState] || 'unknown',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Error handling middleware

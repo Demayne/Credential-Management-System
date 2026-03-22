@@ -1,19 +1,11 @@
-import { useLocation } from 'react-router-dom'
 import { FaBars } from 'react-icons/fa'
 import Breadcrumbs from './Breadcrumbs'
 import SearchBar from './SearchBar'
-import Notifications from './Notifications'
+import { usePageTitle } from '../../../contexts/PageTitleContext'
 import '../../../styles/components/layout/TopBar.scss'
 
 const TopBar = ({ onMenuClick }) => {
-  const location = useLocation()
-
-  const getPageTitle = () => {
-    if (location.pathname === '/') return 'Dashboard'
-    if (location.pathname.startsWith('/repo/')) return 'Repository'
-    if (location.pathname === '/admin') return 'Admin Panel'
-    return 'Page'
-  }
+  const { pageTitle } = usePageTitle()
 
   return (
     <header className="topbar">
@@ -24,11 +16,10 @@ const TopBar = ({ onMenuClick }) => {
         <Breadcrumbs />
       </div>
       <div className="topbar-center">
-        <h1 className="page-title">{getPageTitle()}</h1>
+        <h1 className="page-title">{pageTitle}</h1>
       </div>
       <div className="topbar-right">
         <SearchBar />
-        <Notifications />
       </div>
     </header>
   )

@@ -24,12 +24,15 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
 import { useToast } from '../../../contexts/ToastContext'
+import { usePageTitle } from '../../../contexts/PageTitleContext'
+import { useRecentReposContext } from '../../../contexts/RecentReposContext'
 import api from '../../../services/api'
 import RepositoryHeader from './RepositoryHeader'
 import CredentialTable from './CredentialTable'
 import AddCredentialModal from '../CredentialModals/AddCredentialModal'
 import EditCredentialModal from '../CredentialModals/EditCredentialModal'
 import ViewCredentialModal from '../CredentialModals/ViewCredentialModal'
+import ConfirmModal from '../../common/ConfirmModal'
 import SkeletonLoader from '../../common/SkeletonLoader'
 import '../../../styles/components/repositories/RepositoryView.scss'
 
@@ -43,6 +46,9 @@ const RepositoryView = () => {
   const [showEditModal, setShowEditModal] = useState(false)
   const [showViewModal, setShowViewModal] = useState(false)
   const [selectedCredential, setSelectedCredential] = useState(null)
+  const [confirmState, setConfirmState] = useState({ open: false, title: '', message: '', onConfirm: null })
+  const { setPageTitle } = usePageTitle()
+  const { addRecentRepo } = useRecentReposContext()
 
   useEffect(() => {
     loadRepository()
@@ -54,6 +60,9 @@ const RepositoryView = () => {
       const response = await api.get(`/repositories/${divisionId}`)
       if (response.data.success && response.data.repository) {
         setRepository(response.data.repository)
+        const divName = response.data.repository.division?.name || 'Repository'
+        setPageTitle(divName)
+        addRecentRepo({ id: divisionId, name: divName })
       } else {
         error(response.data.message || 'Failed to load repository')
       }
@@ -90,35 +99,49 @@ const RepositoryView = () => {
     }
   }
 
-  const handleDeleteCredential = async (credentialId) => {
-    if (!window.confirm('Are you sure you want to delete this credential?')) {
-      return
-    }
-
-    try {
-      await api.delete(`/repositories/credentials/${credentialId}`)
-      success('Credential deleted successfully')
-      loadRepository()
-    } catch (err) {
-      error(err.response?.data?.message || err.userMessage || 'Failed to delete credential')
-    }
+  const handleDeleteCredential = (credentialId) => {
+    setConfirmState({
+      open: true,
+      title: 'Delete Credential',
+      message: 'This credential will be permanently deleted. This action cannot be undone.',
+      onConfirm: async () => {
+        setConfirmState(s => ({ ...s, open: false }))
+        try {
+          await api.delete(`/repositories/credentials/${credentialId}`)
+          success('Credential deleted successfully')
+          loadRepository()
+        } catch (err) {
+          error(err.response?.data?.message || 'Failed to delete credential')
+        }
+      },
+    })
   }
 
-  const handleBulkDelete = async (credentialIds) => {
-    if (!window.confirm(`Are you sure you want to delete ${credentialIds.length} credential(s)?`)) {
-      return
-    }
-
-    try {
-      // Delete credentials one by one (could be optimized with bulk endpoint)
-      await Promise.all(
-        credentialIds.map(id => api.delete(`/repositories/credentials/${id}`))
-      )
-      success(`${credentialIds.length} credential(s) deleted successfully`)
-      loadRepository()
-    } catch (err) {
-      error(err.response?.data?.message || err.userMessage || 'Failed to delete credentials')
-    }
+  const handleBulkDelete = (credentialIds) => {
+    setConfirmState({
+      open: true,
+      title: `Delete ${credentialIds.length} Credential${credentialIds.length !== 1 ? 's' : ''}`,
+      message: `${credentialIds.length} credential${credentialIds.length !== 1 ? 's' : ''} will be permanently deleted. This action cannot be undone.`,
+      onConfirm: async () => {
+        setConfirmState(s => ({ ...s, open: false }))
+        try {
+          const results = await Promise.allSettled(
+            credentialIds.map(id => api.delete(`/repositories/credentials/${id}`))
+          )
+          const succeeded = results.filter(r => r.status === 'fulfilled').length
+          const failed = results.filter(r => r.status === 'rejected').length
+          if (succeeded > 0) {
+            success(`${succeeded} credential(s) deleted successfully`)
+            loadRepository()
+          }
+          if (failed > 0) {
+            error(`${failed} credential(s) could not be deleted`)
+          }
+        } catch (err) {
+          error(err.response?.data?.message || 'Failed to delete credentials')
+        }
+      },
+    })
   }
 
   const handleViewCredential = async (credential) => {
@@ -160,7 +183,7 @@ const RepositoryView = () => {
       />
       
       {user?.role && ['user', 'management', 'admin'].includes(user.role) && (
-        <button className="fab" onClick={() => setShowAddModal(true)}>
+        <button className="fab" onClick={() => setShowAddModal(true)} aria-label="Add new credential">
           + Add Credential
         </button>
       )}
@@ -192,6 +215,15 @@ const RepositoryView = () => {
           }}
         />
       )}
+
+      <ConfirmModal
+        isOpen={confirmState.open}
+        title={confirmState.title}
+        message={confirmState.message}
+        confirmLabel="Delete"
+        onConfirm={confirmState.onConfirm}
+        onCancel={() => setConfirmState(s => ({ ...s, open: false }))}
+      />
     </div>
   )
 }

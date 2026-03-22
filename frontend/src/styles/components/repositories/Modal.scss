@@ -7,12 +7,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: $spacing-md;
 
   @media (max-width: $breakpoint-sm) {
@@ -22,33 +23,33 @@
 }
 
 .modal-content {
-  background: $dark-card;
-  border: 1px solid $dark-border;
-  border-radius: $border-radius-lg;
+  background: linear-gradient(145deg, rgba(20, 29, 46, 0.98), rgba(15, 22, 35, 0.99));
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: $border-radius-xl;
   width: 90%;
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: $shadow-xl;
-  animation: modalSlideIn 0.3s ease-out;
+  box-shadow: $shadow-xl, 0 0 0 1px rgba(99, 102, 241, 0.06);
+  animation: modalSlideIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
 
   @media (max-width: $breakpoint-sm) {
     width: 100%;
     max-height: 95vh;
-    border-radius: $border-radius-lg $border-radius-lg 0 0;
+    border-radius: $border-radius-xl $border-radius-xl 0 0;
     max-width: 100%;
   }
 }
 
 @keyframes modalSlideIn {
   from {
-    transform: translateY(-20px);
+    transform: translateY(-16px) scale(0.98);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
@@ -58,7 +59,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 24px;
-  border-bottom: 1px solid $dark-border;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   flex-shrink: 0;
 
   @media (max-width: $breakpoint-sm) {
@@ -70,6 +71,7 @@
     color: $text-primary;
     font-size: $font-size-xl;
     font-weight: 700;
+    letter-spacing: -0.3px;
 
     @media (max-width: $breakpoint-sm) {
       font-size: $font-size-lg;
@@ -83,7 +85,7 @@
     font-size: 20px;
     cursor: pointer;
     padding: 8px;
-    transition: all 0.2s;
+    transition: all $transition-base;
     border-radius: $border-radius;
     display: flex;
     align-items: center;
@@ -91,7 +93,7 @@
 
     &:hover {
       color: $text-primary;
-      background: rgba($error, 0.1);
+      background: rgba(239, 68, 68, 0.12);
     }
   }
 }
@@ -111,8 +113,10 @@
     label {
       display: block;
       color: $text-secondary;
-      font-size: $font-size-sm;
-      font-weight: 500;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
       margin-bottom: 8px;
     }
 
@@ -120,35 +124,55 @@
     select,
     textarea {
       width: 100%;
-      padding: 10px 12px;
-      background: $dark-surface;
-      border: 1px solid $dark-border;
+      padding: 11px 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.10);
       border-radius: $border-radius;
       color: $text-primary;
       font-size: $font-size-sm;
-      transition: all 0.2s;
+      height: 44px;
+      transition: border-color $transition-base, box-shadow $transition-base, background $transition-base;
 
       &:focus {
         outline: none;
         border-color: $primary-blue;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        background: rgba(99, 102, 241, 0.05);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
       }
 
       &.error {
         border-color: $error;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+
+      &::placeholder {
+        color: $text-muted;
       }
     }
 
     textarea {
       resize: vertical;
       font-family: inherit;
+      height: auto;
+      min-height: 90px;
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234b5566' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
     }
 
     .error-message {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 4px;
       color: $error;
       font-size: $font-size-xs;
-      margin-top: 4px;
+      margin-top: 6px;
     }
   }
 
@@ -158,8 +182,10 @@
     label {
       display: block;
       color: $text-secondary;
-      font-size: $font-size-sm;
-      font-weight: 500;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
       margin-bottom: 8px;
     }
 
@@ -174,23 +200,28 @@
       }
 
       .password-value {
-        font-family: monospace;
-        background: $dark-surface;
+        font-family: $font-mono;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
         padding: 8px 12px;
         border-radius: $border-radius;
         flex: 1;
+        color: $text-primary;
+        font-size: $font-size-sm;
+        letter-spacing: 0.05em;
       }
 
       a {
-        color: $primary-blue;
+        color: $primary-light;
         text-decoration: none;
         display: flex;
         align-items: center;
         gap: 8px;
-        transition: color 0.2s;
+        transition: color $transition-base;
+        font-size: $font-size-sm;
 
         &:hover {
-          color: $primary-light;
+          color: $text-primary;
         }
       }
 
@@ -199,29 +230,34 @@
         align-items: center;
         gap: 6px;
         padding: 6px 12px;
-        background: $dark-surface;
-        border: 1px solid $dark-border;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: $border-radius;
         color: $text-secondary;
         cursor: pointer;
         font-size: $font-size-xs;
-        transition: all 0.2s;
+        transition: all $transition-base;
 
         &:hover {
-          background: $dark-border;
-          color: $text-primary;
+          background: rgba(99, 102, 241, 0.12);
+          border-color: rgba(99, 102, 241, 0.3);
+          color: $primary-light;
         }
       }
     }
 
     .category-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      background: rgba(37, 99, 235, 0.2);
-      color: $primary-blue;
-      border-radius: $border-radius-sm;
-      font-size: $font-size-xs;
-      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: $border-radius-pill;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      background: rgba(99, 102, 241, 0.12);
+      color: $primary-light;
+      border: 1px solid rgba(99, 102, 241, 0.2);
     }
 
     .notes-value {
@@ -229,8 +265,10 @@
       font-size: $font-size-sm;
       margin: 0;
       padding: 12px;
-      background: $dark-surface;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: $border-radius;
+      line-height: 1.6;
     }
 
     .tags {
@@ -240,9 +278,10 @@
 
       .tag {
         padding: 4px 10px;
-        background: $dark-surface;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         color: $text-secondary;
-        border-radius: $border-radius-sm;
+        border-radius: $border-radius-pill;
         font-size: $font-size-xs;
       }
     }
@@ -254,7 +293,7 @@
   justify-content: flex-end;
   gap: 12px;
   padding: 24px;
-  border-top: 1px solid $dark-border;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   flex-shrink: 0;
 
   @media (max-width: $breakpoint-sm) {
@@ -274,10 +313,11 @@
     padding: 10px 20px;
     border-radius: $border-radius;
     font-size: $font-size-sm;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all $transition-base;
     min-width: 100px;
+    letter-spacing: 0.3px;
 
     @media (max-width: $breakpoint-sm) {
       padding: 12px 20px;
@@ -292,4 +332,3 @@
     @include button-secondary;
   }
 }
-

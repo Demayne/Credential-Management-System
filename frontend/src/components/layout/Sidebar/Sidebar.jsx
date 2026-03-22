@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, NavLink } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
-import { FaHome, FaDatabase, FaCog, FaSignOutAlt, FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa'
+import { useRecentReposContext } from '../../../contexts/RecentReposContext'
+import { FaHome, FaDatabase, FaCog, FaChevronLeft, FaChevronRight, FaTimes, FaClock } from 'react-icons/fa'
 import NavigationMenu from './NavigationMenu'
 import UserProfile from './UserProfile'
 import '../../../styles/components/layout/Sidebar.scss'
@@ -9,6 +10,7 @@ import '../../../styles/components/layout/Sidebar.scss'
 const Sidebar = ({ isOpen, onClose }) => {
   const [collapsed, setCollapsed] = useState(false)
   const { user } = useAuth()
+  const { recent } = useRecentReposContext()
   const location = useLocation()
 
   // Close sidebar on mobile when route changes
@@ -42,7 +44,29 @@ const Sidebar = ({ isOpen, onClose }) => {
         </div>
         
         <NavigationMenu items={menuItems} collapsed={collapsed} />
-        
+
+        {recent.length > 0 && (
+          <div className="recent-repos">
+            {!collapsed && (
+              <div className="recent-label">
+                <FaClock aria-hidden="true" />
+                <span>Recent</span>
+              </div>
+            )}
+            {recent.map(repo => (
+              <NavLink
+                key={repo.id}
+                to={`/repo/${repo.id}`}
+                className={({ isActive }) => `nav-item recent-item ${isActive ? 'active' : ''}`}
+                title={collapsed ? repo.name : ''}
+              >
+                <FaDatabase className="nav-icon" aria-hidden="true" />
+                {!collapsed && <span className="nav-label">{repo.name}</span>}
+              </NavLink>
+            ))}
+          </div>
+        )}
+
         <UserProfile user={user} collapsed={collapsed} />
       </aside>
     </>

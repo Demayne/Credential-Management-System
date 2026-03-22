@@ -29,7 +29,7 @@ import { isNetworkError, isTimeoutError, getErrorMessage } from '../utils/networ
  * - Request timeout of 30 seconds
  */
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api',
   timeout: 30000, // 30 seconds
   headers: {
     'Content-Type': 'application/json'

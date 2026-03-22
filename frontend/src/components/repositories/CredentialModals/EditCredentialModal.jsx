@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import PasswordStrength from '../../common/PasswordStrength'
 import '../../../styles/components/repositories/Modal.scss'
 
 const EditCredentialModal = ({ credential, onClose, onSave }) => {
@@ -102,6 +103,7 @@ const EditCredentialModal = ({ credential, onClose, onSave }) => {
               value={formData.password}
               onChange={handleChange}
             />
+            <PasswordStrength password={formData.password} showFeedback />
           </div>
 
           <div className="form-group">

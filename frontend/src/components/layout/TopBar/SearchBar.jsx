@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { FaSearch, FaTimes, FaExternalLinkAlt } from 'react-icons/fa'
 import { useSearch } from '../../../contexts/SearchContext'
 import { useAuth } from '../../../contexts/AuthContext'
+import { getCategoryColor } from '../../../utils/categoryColors'
 import api from '../../../services/api'
 import '../../../styles/components/layout/SearchBar.scss'
 
@@ -137,7 +138,13 @@ const SearchBar = () => {
                       <FaExternalLinkAlt className="result-link-icon" />
                     </div>
                     <div className="result-details">
-                      <span className="result-category">{credential.category}</span>
+                      <span
+                            className="result-category"
+                            style={{
+                              color: getCategoryColor(credential.category),
+                              background: `${getCategoryColor(credential.category)}1a`,
+                            }}
+                          >{credential.category}</span>
                       <span className="result-division">
                         {credential.division?.name} ({credential.division?.code})
                       </span>

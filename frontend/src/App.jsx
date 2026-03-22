@@ -21,6 +21,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './contexts/AuthContext'
 import { ToastProvider } from './contexts/ToastContext'
 import { SearchProvider } from './contexts/SearchContext'
+import { PageTitleProvider } from './contexts/PageTitleContext'
+import { RecentReposProvider } from './contexts/RecentReposContext'
 import ErrorBoundary from './components/common/ErrorBoundary'
 import ProtectedRoute from './components/common/ProtectedRoute'
 import AuthLayout from './components/auth/AuthLayout'
@@ -46,6 +48,8 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
+        <PageTitleProvider>
+        <RecentReposProvider>
         <AuthProvider>
           <ToastProvider>
             <SearchProvider>
@@ -97,6 +101,8 @@ function App() {
             </SearchProvider>
           </ToastProvider>
         </AuthProvider>
+        </RecentReposProvider>
+        </PageTitleProvider>
       </Router>
     </ErrorBoundary>
   )

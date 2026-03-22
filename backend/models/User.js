@@ -122,5 +122,10 @@ userSchema.methods.isLocked = function() {
   return !!(this.lockUntil && this.lockUntil > Date.now());
 };
 
+// Indexes for frequently queried fields
+userSchema.index({ divisions: 1 });
+userSchema.index({ organizationalUnits: 1 });
+userSchema.index({ role: 1, isActive: 1 });
+
 module.exports = mongoose.model('User', userSchema);
 

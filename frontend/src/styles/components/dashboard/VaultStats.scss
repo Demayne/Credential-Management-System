@@ -1,0 +1,101 @@
+@use '../../variables' as *;
+
+.vault-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+
+  @media (max-width: $breakpoint-md) {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+}
+
+.vault-stat-card {
+  background: $dark-card;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: $border-radius-lg;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: border-color $transition-base, transform $transition-base, box-shadow $transition-base;
+  position: relative;
+  overflow: hidden;
+
+  // Subtle top glow matching the accent colour — applied via inline style on the element,
+  // but we set the structure here
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: 0.25;
+    transition: opacity $transition-base;
+  }
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.13);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    &::before {
+      opacity: 0.45;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 14px 18px;
+  }
+
+  .stat-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    opacity: 0.85;
+
+    @media (max-width: $breakpoint-md) {
+      font-size: 18px;
+    }
+  }
+
+  .stat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+
+    .stat-value {
+      font-size: $font-size-2xl;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1;
+
+      @media (max-width: $breakpoint-md) {
+        font-size: $font-size-xl;
+      }
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: $text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+  }
+}

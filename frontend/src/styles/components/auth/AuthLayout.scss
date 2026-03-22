@@ -5,33 +5,96 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: $dark-bg;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+
+  // Animated gradient orbs in background
+  &::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+    top: -200px;
+    right: -100px;
+    animation: orbFloat 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    bottom: -150px;
+    left: -100px;
+    animation: orbFloat 10s ease-in-out infinite reverse;
+    pointer-events: none;
+  }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
 }
 
 .auth-background {
   width: 100%;
-  max-width: 450px;
-  padding: 20px;
+  max-width: 440px;
+  position: relative;
+  z-index: 1;
 }
 
 .auth-card {
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid $dark-border;
-  border-radius: $border-radius-lg;
-  padding: 40px;
-  box-shadow: $shadow-lg;
+  background: linear-gradient(145deg, rgba(20, 29, 46, 0.95), rgba(15, 22, 35, 0.98));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: $border-radius-xl;
+  padding: 48px 40px;
+  box-shadow: $shadow-xl, 0 0 0 1px rgba(99, 102, 241, 0.08);
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 36px 28px;
+    border-radius: $border-radius-lg;
+  }
 }
 
 .auth-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 
+  // Decorative brand mark above the title — no JSX needed
+  &::before {
+    content: '🔐';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, $primary-blue, $primary-dark);
+    border-radius: $border-radius-lg;
+    font-size: 22px;
+    margin: 0 auto 16px;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+  }
+
+  // JSX renders <h1 className="auth-logo">CoolTech</h1>
   .auth-logo {
-    font-size: 32px;
+    font-size: $font-size-2xl;
     font-weight: 700;
-    color: $primary-blue;
-    margin: 0 0 8px 0;
+    color: $text-primary;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, $text-primary 40%, $primary-light);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .auth-subtitle {
@@ -40,4 +103,3 @@
     margin: 0;
   }
 }
-

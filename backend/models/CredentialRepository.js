@@ -19,7 +19,7 @@ const crypto = require('crypto');
 
 // Encryption configuration
 const ALGORITHM = 'aes-256-cbc'; // Advanced Encryption Standard with Cipher Block Chaining
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'dev-encryption-key-32-chars-long!';
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY; // Required — validated at startup in server.js
 const IV_LENGTH = 16; // Initialization Vector length for CBC mode
 
 /**

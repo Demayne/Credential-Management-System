@@ -29,5 +29,8 @@ const divisionSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Index for common query pattern: all active divisions in an OU
+divisionSchema.index({ organizationalUnit: 1, isActive: 1 });
+
 module.exports = mongoose.model('Division', divisionSchema);
 

@@ -5,18 +5,18 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 72px;
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid $dark-border;
+  height: 64px;
+  background: rgba(7, 11, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 $spacing-xl;
-  padding-left: calc(280px + $spacing-xl);
+  padding-left: calc(260px + #{$spacing-xl});
   z-index: 999;
-  transition: padding-left 0.3s ease;
-  box-shadow: $shadow-sm;
+  transition: padding-left $transition-slow;
 
   @media (max-width: $breakpoint-lg) {
     padding-left: $spacing-xl;
@@ -24,7 +24,7 @@
 
   @media (max-width: $breakpoint-md) {
     padding: 0 $spacing-md;
-    height: 64px;
+    height: 60px;
   }
 
   @media (max-width: $breakpoint-sm) {
@@ -40,13 +40,13 @@
   .mobile-menu-btn {
     display: none;
     background: transparent;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     color: $text-secondary;
     cursor: pointer;
-    padding: $spacing-sm;
+    padding: 8px;
     border-radius: $border-radius;
-    transition: all 0.2s;
-    font-size: $font-size-lg;
+    transition: all $transition-base;
+    font-size: $font-size-base;
     margin-right: $spacing-md;
 
     @media (max-width: $breakpoint-lg) {
@@ -58,6 +58,7 @@
     &:hover {
       background: $dark-card;
       color: $text-primary;
+      border-color: rgba(255, 255, 255, 0.15);
     }
   }
 
@@ -72,13 +73,14 @@
     }
 
     .page-title {
-      font-size: $font-size-xl;
+      font-size: $font-size-lg;
       font-weight: 600;
       color: $text-primary;
       margin: 0;
+      letter-spacing: -0.2px;
 
       @media (max-width: $breakpoint-sm) {
-        font-size: $font-size-lg;
+        font-size: $font-size-base;
       }
     }
   }
@@ -88,11 +90,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 16px;
+    gap: 12px;
 
     @media (max-width: $breakpoint-md) {
-      gap: $spacing-sm;
+      gap: 8px;
     }
   }
 }
-

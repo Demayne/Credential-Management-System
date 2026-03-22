@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { FaChevronDown } from 'react-icons/fa'
+import ConfirmModal from '../../../common/ConfirmModal'
 import '../../../../styles/components/admin/RoleDropdown.scss'
 
 const RoleDropdown = ({ currentRole, userId, onRoleChange }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [pendingRole, setPendingRole] = useState(null)
   const dropdownRef = useRef(null)
 
   const roles = ['user', 'management', 'admin']
@@ -29,11 +31,14 @@ const RoleDropdown = ({ currentRole, userId, onRoleChange }) => {
 
   const handleSelect = (role) => {
     if (role !== currentRole) {
-      if (window.confirm(`Change user role to ${role}?`)) {
-        onRoleChange(userId, role)
-      }
+      setPendingRole(role)
     }
     setIsOpen(false)
+  }
+
+  const handleConfirm = () => {
+    onRoleChange(userId, pendingRole)
+    setPendingRole(null)
   }
 
   return (
@@ -60,6 +65,15 @@ const RoleDropdown = ({ currentRole, userId, onRoleChange }) => {
           ))}
         </div>
       )}
+      <ConfirmModal
+        isOpen={!!pendingRole}
+        title="Change User Role"
+        message={`Change this user's role to "${pendingRole}"? This will affect their access permissions immediately.`}
+        confirmLabel="Change Role"
+        variant="warning"
+        onConfirm={handleConfirm}
+        onCancel={() => setPendingRole(null)}
+      />
     </div>
   )
 }

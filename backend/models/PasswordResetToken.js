@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 
+// Hash a raw token before storing — the email link carries the raw token,
+// the DB only ever holds the hash so a DB leak can't be replayed.
+function hashToken(rawToken) {
+  return crypto.createHash('sha256').update(rawToken).digest('hex');
+}
+
 const passwordResetTokenSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,19 +32,22 @@ const passwordResetTokenSchema = new mongoose.Schema({
 });
 
 // Generate reset token
-passwordResetTokenSchema.statics.generateToken = function(userId) {
-  const token = crypto.randomBytes(32).toString('hex');
-  return this.create({
+// Returns { rawToken, doc } — rawToken goes in the email link, doc is the DB record.
+// The DB stores only the SHA-256 hash of the raw token.
+passwordResetTokenSchema.statics.generateToken = async function(userId) {
+  const rawToken = crypto.randomBytes(32).toString('hex');
+  const doc = await this.create({
     user: userId,
-    token,
+    token: hashToken(rawToken),
     expiresAt: Date.now() + 3600000 // 1 hour
   });
+  return { rawToken, doc };
 };
 
-// Verify token
-passwordResetTokenSchema.statics.verifyToken = async function(token) {
+// Verify token — accepts the raw token from the email link, hashes it to look up in DB.
+passwordResetTokenSchema.statics.verifyToken = async function(rawToken) {
   const resetToken = await this.findOne({
-    token,
+    token: hashToken(rawToken),
     used: false,
     expiresAt: { $gt: Date.now() }
   }).populate('user');

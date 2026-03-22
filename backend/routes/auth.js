@@ -26,6 +26,7 @@ const PasswordResetToken = require('../models/PasswordResetToken');
 const ActivityLog = require('../models/ActivityLog');
 const { generateToken, generateRefreshToken } = require('../utils/generateToken');
 const { protect } = require('../middleware/auth');
+const { sendPasswordResetEmail } = require('../utils/emailService');
 
 /**
  * @route   POST /api/auth/register
@@ -279,8 +280,9 @@ router.post('/forgot-password', [
       });
     }
 
-    // Generate reset token
-    const resetToken = await PasswordResetToken.generateToken(user._id);
+    // Generate reset token — rawToken goes in the email link, only the hash is stored in DB
+    const { rawToken } = await PasswordResetToken.generateToken(user._id);
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${rawToken}`;
 
     // Log activity
     await ActivityLog.create({
@@ -293,16 +295,11 @@ router.post('/forgot-password', [
       userAgent: req.get('user-agent')
     });
 
-    // In production, send email here
-    // For now, return token in development
-    const resetUrl = process.env.NODE_ENV === 'development' 
-      ? `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken.token}`
-      : null;
+    await sendPasswordResetEmail(user.email, resetUrl);
 
     res.json({
       success: true,
-      message: 'If an account exists with this email, a password reset link has been sent.',
-      ...(process.env.NODE_ENV === 'development' && { resetUrl, token: resetToken.token })
+      message: 'If an account exists with this email, a password reset link has been sent.'
     });
   } catch (error) {
     console.error('Forgot password error:', error);

@@ -3,43 +3,50 @@
 
 .repository-grid {
   .section-title {
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     color: $text-primary;
-    margin: 0 0 24px 0;
+    margin: 0 0 20px;
     font-weight: 600;
+    letter-spacing: -0.2px;
 
     @media (max-width: $breakpoint-md) {
-      font-size: $font-size-lg;
-      margin-bottom: 16px;
+      font-size: $font-size-base;
+      margin-bottom: 14px;
     }
   }
 
   .repository-categories {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
   .ou-category {
-    @include card-style;
-    padding: 0;
+    background: $dark-card;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: $border-radius-lg;
     overflow: hidden;
-    border: 1px solid $dark-border;
+    transition: border-color $transition-base;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
 
     .category-header {
       padding: 16px 20px;
-      background: $dark-surface;
-      border-bottom: 1px solid $dark-border;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: background $transition-base;
       width: 100%;
       border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       text-align: left;
       color: inherit;
       font-family: inherit;
 
       &:hover {
-        background: rgba($primary-blue, 0.05);
+        background: rgba(99, 102, 241, 0.05);
       }
 
       &:focus {
@@ -50,76 +57,98 @@
       .category-title {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
 
         svg {
-          color: $primary-blue;
-          font-size: 14px;
-          transition: transform 0.2s;
+          color: $primary-light;
+          font-size: 12px;
+          transition: transform $transition-base;
         }
 
         h4 {
-          font-size: $font-size-lg;
+          font-size: $font-size-base;
           color: $text-primary;
           margin: 0;
           font-weight: 600;
+          letter-spacing: -0.2px;
         }
 
         .category-code {
-          font-size: $font-size-xs;
+          font-size: 10px;
           color: $text-muted;
-          background: $dark-border;
-          padding: 2px 8px;
-          border-radius: $border-radius-sm;
-          font-weight: 500;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 2px 7px;
+          border-radius: $border-radius-pill;
+          font-weight: 600;
           text-transform: uppercase;
+          letter-spacing: 0.4px;
         }
 
         .division-count {
-          font-size: $font-size-sm;
-          color: $text-secondary;
+          font-size: $font-size-xs;
+          color: $text-muted;
           margin-left: auto;
         }
       }
     }
 
     .category-divisions {
-      padding: 16px 20px;
+      padding: 14px 16px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
 
       @media (max-width: $breakpoint-md) {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        padding: 12px 16px;
-        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 12px;
+        gap: 10px;
       }
 
       @media (max-width: $breakpoint-sm) {
         grid-template-columns: 1fr;
-        padding: 12px;
+        padding: 10px;
       }
     }
   }
 
   .repository-card {
-    @include card-style;
+    background: $dark-surface;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: $border-radius-lg;
     padding: 16px;
     cursor: pointer;
-    transition: all 0.2s;
-    background: $dark-card;
-    border: 1px solid $dark-border;
+    transition: all $transition-base;
     width: 100%;
     text-align: left;
     color: inherit;
     font-family: inherit;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, $primary-blue, $primary-dark);
+      opacity: 0;
+      transition: opacity $transition-base;
+      border-radius: 0 $border-radius-sm $border-radius-sm 0;
+    }
 
     &:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.04);
       transform: translateY(-2px);
-      box-shadow: $shadow-lg;
-      border-color: $primary-blue;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.15);
+
+      &::before {
+        opacity: 1;
+      }
     }
 
     &:focus {
@@ -130,20 +159,21 @@
     .card-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 10px;
 
       .card-icon {
-        font-size: 20px;
-        color: $primary-blue;
+        font-size: 18px;
+        color: $primary-light;
       }
 
       h4 {
-        font-size: $font-size-base;
+        font-size: $font-size-sm;
         color: $text-primary;
         margin: 0;
         flex: 1;
-        font-weight: 500;
+        font-weight: 600;
+        letter-spacing: -0.1px;
       }
     }
 
@@ -151,38 +181,42 @@
       margin-bottom: 12px;
 
       .card-code {
-        font-size: $font-size-xs;
-        color: $text-secondary;
-        margin: 0 0 4px 0;
-        font-weight: 500;
+        font-size: 10px;
+        color: $text-muted;
+        margin: 0 0 3px;
+        font-weight: 600;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
 
       .card-description {
         font-size: $font-size-xs;
         color: $text-muted;
         margin: 0;
-        line-height: 1.4;
+        line-height: 1.5;
       }
     }
 
     .card-footer {
-      border-top: 1px solid $dark-border;
-      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 10px;
+      margin-top: auto;
 
       .view-link {
         display: flex;
         align-items: center;
         gap: 6px;
-        color: $primary-blue;
+        color: $primary-light;
         font-size: $font-size-xs;
-        font-weight: 500;
-        transition: gap 0.2s;
+        font-weight: 600;
+        transition: gap $transition-base;
+        opacity: 0.7;
       }
     }
 
     &:hover .view-link {
       gap: 10px;
+      opacity: 1;
     }
   }
 
@@ -192,9 +226,10 @@
     text-align: center;
 
     .empty-icon {
-      font-size: 64px;
+      font-size: 56px;
       color: $text-muted;
       margin-bottom: 16px;
+      opacity: 0.5;
     }
 
     p {

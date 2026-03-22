@@ -1,4 +1,5 @@
 import { FaTimes, FaCopy, FaExternalLinkAlt } from 'react-icons/fa'
+import PasswordStrength from '../../common/PasswordStrength'
 import '../../../styles/components/repositories/Modal.scss'
 
 const ViewCredentialModal = ({ credential, onClose }) => {
@@ -18,7 +19,7 @@ const ViewCredentialModal = ({ credential, onClose }) => {
         <div className="modal-body">
           <div className="credential-detail">
             <label>Category</label>
-            <span className="category-badge">{credential.category}</span>
+            <span className="category-badge" data-category={credential.category}>{credential.category}</span>
           </div>
 
           <div className="credential-detail">
@@ -49,6 +50,7 @@ const ViewCredentialModal = ({ credential, onClose }) => {
                 <FaCopy /> Copy
               </button>
             </div>
+            <PasswordStrength password={credential.password} />
           </div>
 
           {credential.notes && (

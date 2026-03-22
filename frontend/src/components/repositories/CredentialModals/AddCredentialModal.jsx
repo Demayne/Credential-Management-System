@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
+import PasswordStrength from '../../common/PasswordStrength'
 import '../../../styles/components/repositories/Modal.scss'
 
 const AddCredentialModal = ({ onClose, onSave }) => {
@@ -109,6 +110,7 @@ const AddCredentialModal = ({ onClose, onSave }) => {
               className={errors.password ? 'error' : ''}
             />
             {errors.password && <span className="error-message">{errors.password}</span>}
+            <PasswordStrength password={formData.password} showFeedback />
           </div>
 
           <div className="form-group">
