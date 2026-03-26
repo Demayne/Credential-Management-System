@@ -49,8 +49,8 @@ function App() {
     <ErrorBoundary>
       <Router>
         <PageTitleProvider>
-        <RecentReposProvider>
         <AuthProvider>
+        <RecentReposProvider>
           <ToastProvider>
             <SearchProvider>
               <ToastContainer />
@@ -100,8 +100,8 @@ function App() {
               </Routes>
             </SearchProvider>
           </ToastProvider>
-        </AuthProvider>
         </RecentReposProvider>
+        </AuthProvider>
         </PageTitleProvider>
       </Router>
     </ErrorBoundary>
