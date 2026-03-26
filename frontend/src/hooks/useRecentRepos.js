@@ -1,28 +1,39 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
-const STORAGE_KEY = 'cooltech_recent_repos'
 const MAX_RECENT = 5
 
-function readRecent() {
+function storageKey(userId) {
+  return userId ? `cooltech_recent_repos_${userId}` : null
+}
+
+function readRecent(userId) {
+  const key = storageKey(userId)
+  if (!key) return []
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    return JSON.parse(localStorage.getItem(key) || '[]')
   } catch {
     return []
   }
 }
 
-export function useRecentRepos() {
-  const [recent, setRecent] = useState(readRecent)
+export function useRecentRepos(userId) {
+  const [recent, setRecent] = useState(() => readRecent(userId))
+
+  // Reset when user changes (login/logout)
+  useEffect(() => {
+    setRecent(readRecent(userId))
+  }, [userId])
 
   const addRecentRepo = useCallback((repo) => {
-    // repo: { id, name }
+    const key = storageKey(userId)
+    if (!key) return
     setRecent(prev => {
       const filtered = prev.filter(r => r.id !== repo.id)
       const next = [{ ...repo, visitedAt: new Date().toISOString() }, ...filtered].slice(0, MAX_RECENT)
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+      localStorage.setItem(key, JSON.stringify(next))
       return next
     })
-  }, [])
+  }, [userId])
 
   return { recent, addRecentRepo }
 }
