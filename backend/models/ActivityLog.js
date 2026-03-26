@@ -48,6 +48,8 @@ const activityLogSchema = new mongoose.Schema({
 activityLogSchema.index({ user: 1, timestamp: -1 });
 activityLogSchema.index({ action: 1, timestamp: -1 });
 activityLogSchema.index({ resourceType: 1, resourceId: 1 });
+// Auto-delete logs older than 90 days
+activityLogSchema.index({ timestamp: 1 }, { expireAfterSeconds: 90 * 24 * 60 * 60 });
 
 module.exports = mongoose.model('ActivityLog', activityLogSchema);
 

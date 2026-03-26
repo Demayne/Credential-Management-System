@@ -45,7 +45,7 @@ router.get('/search', protect, async (req, res) => {
       });
     }
 
-    const searchTerm = q.trim();
+    const searchTerm = q.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const searchRegex = new RegExp(searchTerm, 'i');
 
     // Get user's accessible divisions

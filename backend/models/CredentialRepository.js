@@ -19,8 +19,9 @@ const crypto = require('crypto');
 
 // Encryption configuration
 const ALGORITHM = 'aes-256-cbc'; // Advanced Encryption Standard with Cipher Block Chaining
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY; // Required — validated at startup in server.js
 const IV_LENGTH = 16; // Initialization Vector length for CBC mode
+// Derive a stable 32-byte key from the env var using SHA-256 — works regardless of key length/format
+const KEY_BUFFER = crypto.createHash('sha256').update(process.env.ENCRYPTION_KEY || '').digest();
 
 /**
  * Encryption Function
@@ -34,7 +35,7 @@ const IV_LENGTH = 16; // Initialization Vector length for CBC mode
  */
 function encrypt(text) {
   const iv = crypto.randomBytes(IV_LENGTH);
-  const cipher = crypto.createCipheriv(ALGORITHM, Buffer.from(ENCRYPTION_KEY.slice(0, 32)), iv);
+  const cipher = crypto.createCipheriv(ALGORITHM, KEY_BUFFER, iv);
   let encrypted = cipher.update(text);
   encrypted = Buffer.concat([encrypted, cipher.final()]);
   return iv.toString('hex') + ':' + encrypted.toString('hex');
@@ -53,7 +54,7 @@ function decrypt(text) {
   const textParts = text.split(':');
   const iv = Buffer.from(textParts.shift(), 'hex');
   const encryptedText = Buffer.from(textParts.join(':'), 'hex');
-  const decipher = crypto.createDecipheriv(ALGORITHM, Buffer.from(ENCRYPTION_KEY.slice(0, 32)), iv);
+  const decipher = crypto.createDecipheriv(ALGORITHM, KEY_BUFFER, iv);
   let decrypted = decipher.update(encryptedText);
   decrypted = Buffer.concat([decrypted, decipher.final()]);
   return decrypted.toString();

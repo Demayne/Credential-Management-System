@@ -432,5 +432,27 @@ router.put('/change-password', protect, [
   }
 });
 
+// @route   POST /api/auth/refresh
+// @desc    Issue a new access token using a valid refresh token
+// @access  Public
+router.post('/refresh', async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return res.status(401).json({ success: false, message: 'Refresh token required' });
+  }
+  try {
+    const jwt = require('jsonwebtoken');
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    const user = await User.findById(decoded.id).select('_id isActive');
+    if (!user || !user.isActive) {
+      return res.status(401).json({ success: false, message: 'Invalid refresh token' });
+    }
+    const token = generateToken(user._id);
+    res.json({ success: true, token });
+  } catch (error) {
+    return res.status(401).json({ success: false, message: 'Invalid or expired refresh token' });
+  }
+});
+
 module.exports = router;
 
