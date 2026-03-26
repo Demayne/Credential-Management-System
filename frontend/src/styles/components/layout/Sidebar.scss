@@ -66,6 +66,22 @@
 
     .recent-item {
       opacity: 0.75;
+      align-items: flex-start;
+
+      .recent-item-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        overflow: hidden;
+      }
+
+      .recent-time {
+        font-size: 10px;
+        color: $text-muted;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       &:hover {
         opacity: 1;

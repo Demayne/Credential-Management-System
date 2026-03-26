@@ -45,27 +45,35 @@ const Sidebar = ({ isOpen, onClose }) => {
         
         <NavigationMenu items={menuItems} collapsed={collapsed} />
 
-        {recent.length > 0 && (
-          <div className="recent-repos">
-            {!collapsed && (
-              <div className="recent-label">
-                <FaClock aria-hidden="true" />
-                <span>Recent</span>
-              </div>
-            )}
-            {recent.map(repo => (
+        {recent.length > 0 && (() => {
+          const last = recent[0]
+          const visitedAt = last.visitedAt
+            ? new Date(last.visitedAt).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+            : null
+          return (
+            <div className="recent-repos">
+              {!collapsed && (
+                <div className="recent-label">
+                  <FaClock aria-hidden="true" />
+                  <span>Recent</span>
+                </div>
+              )}
               <NavLink
-                key={repo.id}
-                to={`/repo/${repo.id}`}
+                to={`/repo/${last.id}`}
                 className={({ isActive }) => `nav-item recent-item ${isActive ? 'active' : ''}`}
-                title={collapsed ? repo.name : ''}
+                title={collapsed ? last.name : ''}
               >
                 <FaDatabase className="nav-icon" aria-hidden="true" />
-                {!collapsed && <span className="nav-label">{repo.name}</span>}
+                {!collapsed && (
+                  <span className="recent-item-info">
+                    <span className="nav-label">{last.name}</span>
+                    {visitedAt && <span className="recent-time">{visitedAt}</span>}
+                  </span>
+                )}
               </NavLink>
-            ))}
-          </div>
-        )}
+            </div>
+          )
+        })()}
 
         <UserProfile user={user} collapsed={collapsed} />
       </aside>
