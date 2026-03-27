@@ -30,6 +30,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const { monitorMiddleware, getStats } = require('./middleware/monitor');
 
 /**
  * Load Environment Variables
@@ -111,6 +112,9 @@ app.use('/api/auth', authLimiter);
 
 app.use(limiter);
 
+// Request monitoring — must be before routes
+app.use(monitorMiddleware);
+
 // Body parser — 10kb limit prevents large payload attacks
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
@@ -121,17 +125,50 @@ app.use('/api/repositories', require('./routes/repositories'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/utils', require('./routes/utils'));
 app.use('/api/statistics', require('./routes/statistics'));
+app.use('/api/metrics', require('./routes/metrics'));
 
-// Health check
-app.get('/api/health', (req, res) => {
+// Health check — covers all 6 deployment monitoring checks
+app.get('/api/health', async (_req, res) => {
   const mongoose = require('mongoose');
-  const dbState = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  const dbStateMap = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  const dbState = dbStateMap[mongoose.connection.readyState] || 'unknown';
+
+  // DB ping latency
+  let dbPingMs = null;
+  try {
+    const t = Date.now();
+    await mongoose.connection.db.admin().ping();
+    dbPingMs = Date.now() - t;
+  } catch { /* db unreachable */ }
+
+  // Server resource usage
+  const mem = process.memoryUsage();
+  const requestStats = getStats();
+
   res.json({
     success: true,
-    message: 'Server is running',
+    status: dbState === 'connected' ? 'healthy' : 'degraded',
     environment: process.env.NODE_ENV || 'development',
-    database: dbState[mongoose.connection.readyState] || 'unknown',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    uptime: requestStats.uptime,
+    database: {
+      state: dbState,
+      healthy: dbState === 'connected',
+      pingMs: dbPingMs,
+      pingWithinTarget: dbPingMs !== null && dbPingMs < 100,
+    },
+    latency: requestStats.requests.latency ?? requestStats.latency,
+    errorRates: {
+      '4xx': requestStats.requests?.errorRate4xx ?? 0,
+      '5xx': requestStats.requests?.errorRate5xx ?? 0,
+      percent: requestStats.requests?.errorRatePercent ?? 0,
+    },
+    throughput: requestStats.throughput,
+    server: {
+      heapUsedMB: Math.round(mem.heapUsed / 1024 / 1024),
+      heapTotalMB: Math.round(mem.heapTotal / 1024 / 1024),
+      rssMB: Math.round(mem.rss / 1024 / 1024),
+    },
   });
 });
 
