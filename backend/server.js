@@ -25,6 +25,21 @@
  * @module server
  */
 
+// Application Insights — must be initialized before all other requires
+if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
+  const appInsights = require('applicationinsights');
+  appInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+    .setAutoDependencyCorrelation(true)
+    .setAutoCollectRequests(true)
+    .setAutoCollectPerformance(true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectDependencies(true)
+    .setAutoCollectConsole(true)
+    .setSendLiveMetrics(true)
+    .start();
+  console.log('✅ Application Insights initialized');
+}
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
