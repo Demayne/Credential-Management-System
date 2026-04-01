@@ -1,29 +1,6 @@
-/**
- * User Model
- * 
- * Defines the User schema for MongoDB using Mongoose.
- * This model represents users in the CoolTech credential management system.
- * 
- * Key Features:
- * - Password hashing with bcrypt (12 salt rounds for security)
- * - Account lockout mechanism after failed login attempts
- * - Role-based access control (user, management, admin)
- * - Multi-OU and multi-division assignment support
- * - Login attempt tracking and account security
- * 
- * @module models/User
- */
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-/**
- * User Schema Definition
- * 
- * Stores user authentication and profile information.
- * Passwords are automatically hashed before saving (see pre-save hook).
- * Password field is excluded from queries by default (select: false) for security.
- */
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -80,44 +57,18 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-/**
- * Pre-save Hook: Password Hashing
- * 
- * Automatically hashes passwords before saving to the database.
- * Uses bcrypt with 12 salt rounds for strong security.
- * Only hashes if password field has been modified.
- * 
- * @param {Function} next - Mongoose middleware next function
- */
+// Hash password before saving. Only runs when password field is modified.
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
-  
-  const salt = await bcrypt.genSalt(12);
+  const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-/**
- * Instance Method: Compare Password
- * 
- * Compares a candidate password with the stored hashed password.
- * Used during login to verify user credentials.
- * 
- * @param {string} candidatePassword - The password to compare
- * @returns {Promise<boolean>} - True if passwords match, false otherwise
- */
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-/**
- * Instance Method: Check Account Lock Status
- * 
- * Determines if the user account is currently locked due to failed login attempts.
- * Account locks expire after the lockUntil timestamp.
- * 
- * @returns {boolean} - True if account is locked, false otherwise
- */
 userSchema.methods.isLocked = function() {
   return !!(this.lockUntil && this.lockUntil > Date.now());
 };
@@ -128,4 +79,3 @@ userSchema.index({ organizationalUnits: 1 });
 userSchema.index({ role: 1, isActive: 1 });
 
 module.exports = mongoose.model('User', userSchema);
-

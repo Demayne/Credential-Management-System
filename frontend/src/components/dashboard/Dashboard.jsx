@@ -1,18 +1,3 @@
-/**
- * Dashboard Component
- * 
- * Main dashboard page displaying user's accessible credential repositories.
- * Shows welcome message and categorized repository grid grouped by Organizational Unit.
- * 
- * Features:
- * - Loads user's accessible repositories on mount
- * - Groups repositories by Organizational Unit
- * - Handles loading and error states
- * - Navigation to repository views
- * 
- * @module components/dashboard/Dashboard
- */
-
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'

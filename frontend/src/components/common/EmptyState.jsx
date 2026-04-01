@@ -1,12 +1,3 @@
-/**
- * EmptyState Component
- * 
- * Provides consistent, user-friendly empty states throughout the application.
- * Includes helpful illustrations, messages, and optional action buttons.
- * 
- * @module components/common/EmptyState
- */
-
 import { FaDatabase, FaUsers, FaKey, FaSearch, FaInbox } from 'react-icons/fa'
 import '../../styles/components/common/EmptyState.scss'
 

@@ -1,38 +1,13 @@
-/**
- * CredentialRepository Model
- * 
- * Defines the schema for credential repositories associated with divisions.
- * Each division has one credential repository containing encrypted credentials.
- * 
- * Security Features:
- * - AES-256-CBC encryption for credential passwords
- * - Automatic encryption before saving
- * - Decryption method for authorized access
- * - Access tracking (lastAccessed, accessCount)
- * - Expiration tracking for credentials
- * 
- * @module models/CredentialRepository
- */
-
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 
 // Encryption configuration
-const ALGORITHM = 'aes-256-cbc'; // Advanced Encryption Standard with Cipher Block Chaining
-const IV_LENGTH = 16; // Initialization Vector length for CBC mode
+const ALGORITHM = 'aes-256-cbc';
+const IV_LENGTH = 16;
 // Derive a stable 32-byte key from the env var using SHA-256 — works regardless of key length/format
 const KEY_BUFFER = crypto.createHash('sha256').update(process.env.ENCRYPTION_KEY || '').digest();
 
-/**
- * Encryption Function
- * 
- * Encrypts plain text using AES-256-CBC encryption.
- * Generates a random IV for each encryption to ensure uniqueness.
- * Returns encrypted text in format: "iv:encryptedData" (both hex encoded)
- * 
- * @param {string} text - Plain text to encrypt
- * @returns {string} - Encrypted text in format "iv:encryptedData"
- */
+// Returns "iv:encryptedData" (both hex). Random IV per encryption ensures uniqueness.
 function encrypt(text) {
   const iv = crypto.randomBytes(IV_LENGTH);
   const cipher = crypto.createCipheriv(ALGORITHM, KEY_BUFFER, iv);
@@ -41,15 +16,6 @@ function encrypt(text) {
   return iv.toString('hex') + ':' + encrypted.toString('hex');
 }
 
-/**
- * Decryption Function
- * 
- * Decrypts encrypted text using AES-256-CBC decryption.
- * Extracts IV from the encrypted string and uses it to decrypt the data.
- * 
- * @param {string} text - Encrypted text in format "iv:encryptedData"
- * @returns {string} - Decrypted plain text
- */
 function decrypt(text) {
   const textParts = text.split(':');
   const iv = Buffer.from(textParts.shift(), 'hex');
@@ -114,15 +80,6 @@ const credentialSchema = new mongoose.Schema({
   timestamps: true
 });
 
-/**
- * Pre-save Hook: Credential Password Encryption
- * 
- * Automatically encrypts credential passwords before saving to database.
- * Only encrypts if password has been modified and isn't already encrypted.
- * Uses AES-256-CBC encryption for maximum security.
- * 
- * @param {Function} next - Mongoose middleware next function
- */
 credentialSchema.pre('save', function(next) {
   if (this.isModified('password') && !this.password.startsWith('encrypted:')) {
     this.password = 'encrypted:' + encrypt(this.password);
@@ -130,15 +87,7 @@ credentialSchema.pre('save', function(next) {
   next();
 });
 
-/**
- * Instance Method: Get Decrypted Password
- * 
- * Decrypts and returns the credential password for authorized access.
- * This method should only be called after proper authorization checks.
- * Used when users need to view credential passwords.
- * 
- * @returns {string} - Decrypted password in plain text
- */
+// Call only after authorization has been verified
 credentialSchema.methods.getDecryptedPassword = function() {
   if (this.password.startsWith('encrypted:')) {
     return decrypt(this.password.replace('encrypted:', ''));

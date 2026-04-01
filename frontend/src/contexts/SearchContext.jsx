@@ -1,35 +1,8 @@
-/**
- * Search Context
- * 
- * Provides global search functionality for credentials across accessible repositories.
- * Manages search state, results, and navigation to repository views.
- * 
- * Features:
- * - Global search query state
- * - Search results management
- * - Navigation to credential locations
- * - Search UI state (showing/hiding results)
- * 
- * Usage:
- *   const { searchQuery, setSearchQuery, searchResults, navigateToCredential } = useSearch()
- * 
- * @module contexts/SearchContext
- */
-
 import { createContext, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const SearchContext = createContext()
 
-/**
- * Custom Hook: useSearch
- * 
- * Provides access to search context.
- * Must be used within SearchProvider component.
- * 
- * @returns {Object} Search context value
- * @throws {Error} If used outside SearchProvider
- */
 export const useSearch = () => {
   const context = useContext(SearchContext)
   if (!context) {
@@ -38,15 +11,6 @@ export const useSearch = () => {
   return context
 }
 
-/**
- * SearchProvider Component
- * 
- * Provides search context to all child components.
- * Manages search query state, results, and navigation.
- * 
- * @param {React.ReactNode} children - Child components to wrap
- * @returns {JSX.Element} SearchContext.Provider component
- */
 export const SearchProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])

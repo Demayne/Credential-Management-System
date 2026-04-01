@@ -1,25 +1,3 @@
-/**
- * RepositoryView Component
- * 
- * Displays a division's credential repository with full CRUD operations.
- * Shows credentials in a table format with actions based on user role.
- * 
- * Features:
- * - View all credentials in a division's repository
- * - Add new credentials (user, management, admin)
- * - Edit credentials (management, admin)
- * - Delete credentials (management, admin)
- * - View credential details with decrypted password
- * - Access tracking and logging
- * 
- * Role Permissions:
- * - user: Read and add credentials
- * - management: Read, add, and update credentials
- * - admin: Full access (read, add, update, delete)
- * 
- * @module components/repositories/RepositoryView/RepositoryView
- */
-
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'

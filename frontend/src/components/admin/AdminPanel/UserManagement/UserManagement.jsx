@@ -10,6 +10,7 @@ const UserManagement = () => {
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [roleFilter, setRoleFilter] = useState('')
+  const [deleteConfirm, setDeleteConfirm] = useState({ open: false, userId: null, username: '' })
 
   useEffect(() => {
     loadUsers()
@@ -40,6 +41,26 @@ const UserManagement = () => {
     }
   }
 
+  const requestDeleteUser = (userId, username) => {
+    setDeleteConfirm({ open: true, userId, username })
+  }
+
+  const handleDeleteUser = async () => {
+    const { userId, username } = deleteConfirm
+    setDeleteConfirm({ open: false, userId: null, username: '' })
+    try {
+      await api.delete(`/admin/users/${userId}`)
+      success(`User "${username}" deleted successfully`)
+      loadUsers()
+    } catch (err) {
+      error(err.response?.data?.message || 'Failed to delete user')
+    }
+  }
+
+  const cancelDelete = () => {
+    setDeleteConfirm({ open: false, userId: null, username: '' })
+  }
+
   return (
     <div className="user-management">
       <div className="management-header">
@@ -68,10 +89,13 @@ const UserManagement = () => {
         users={users}
         loading={loading}
         onRoleChange={handleRoleChange}
+        onDeleteUser={requestDeleteUser}
+        deleteConfirm={deleteConfirm}
+        onConfirmDelete={handleDeleteUser}
+        onCancelDelete={cancelDelete}
       />
     </div>
   )
 }
 
 export default UserManagement
-

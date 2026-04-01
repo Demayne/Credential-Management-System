@@ -1,25 +1,6 @@
-/**
- * Authentication Routes
- * 
- * Handles all authentication-related endpoints including:
- * - User registration
- * - User login with JWT token generation
- * - Password reset (forgot/reset)
- * - Password change for authenticated users
- * - Current user profile retrieval
- * 
- * Security Features:
- * - Input validation using express-validator
- * - Password hashing via User model pre-save hook
- * - Account lockout after failed login attempts
- * - Activity logging for security auditing
- * - Email enumeration prevention
- * 
- * @module routes/auth
- */
-
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const PasswordResetToken = require('../models/PasswordResetToken');
@@ -28,27 +9,9 @@ const { generateToken, generateRefreshToken } = require('../utils/generateToken'
 const { protect } = require('../middleware/auth');
 const { sendPasswordResetEmail } = require('../utils/emailService');
 
-/**
- * @route   POST /api/auth/register
- * @desc    Register a new user account
- * @access  Public
- * 
- * Creates a new user account with default 'user' role.
- * Validates username (3-30 chars), email format, and password (min 8 chars).
- * Normalizes email to lowercase and trims whitespace.
- * Returns JWT access token and refresh token upon successful registration.
- * 
- * Request Body:
- * - username: string (required, 3-30 characters)
- * - email: string (required, valid email format)
- * - password: string (required, minimum 8 characters)
- * 
- * Response:
- * - success: boolean
- * - token: JWT access token (30 min expiry)
- * - refreshToken: JWT refresh token (7 day expiry)
- * - user: { id, username, email, role }
- */
+// @route   POST /api/auth/register
+// @desc    Register a new user account
+// @access  Public
 router.post('/register', [
   body('username')
     .trim()
@@ -73,11 +36,9 @@ router.post('/register', [
 
     const { username, email, password } = req.body;
 
-    // Normalize email to lowercase
     const normalizedEmail = email.toLowerCase().trim();
     const normalizedUsername = username.trim();
 
-    // Check if user exists
     const existingUser = await User.findOne({
       $or: [{ email: normalizedEmail }, { username: normalizedUsername }]
     });
@@ -89,7 +50,6 @@ router.post('/register', [
       });
     }
 
-    // Create user (default role is 'user')
     const user = await User.create({
       username: normalizedUsername,
       email: normalizedEmail,
@@ -136,11 +96,8 @@ router.post('/login', [
     }
 
     const { email, password } = req.body;
-
-    // Normalize email to lowercase for consistent lookup
     const normalizedEmail = email.toLowerCase().trim();
 
-    // Find user and include password for comparison
     const user = await User.findOne({ email: normalizedEmail }).select('+password');
 
     if (!user) {
@@ -157,7 +114,6 @@ router.post('/login', [
       });
     }
 
-    // Check if account is locked
     if (user.isLocked()) {
       return res.status(401).json({
         success: false,
@@ -165,27 +121,17 @@ router.post('/login', [
       });
     }
 
-    // Check password
     const isMatch = await user.comparePassword(password);
 
     if (!isMatch) {
-      // Increment login attempts
       user.loginAttempts += 1;
-      
+
       // Lock account after 5 failed attempts for 30 minutes
       if (user.loginAttempts >= 5) {
-        user.lockUntil = Date.now() + 30 * 60 * 1000; // 30 minutes
+        user.lockUntil = Date.now() + 30 * 60 * 1000;
       }
-      
-      await user.save();
 
-      // Enhanced error logging for debugging
-      console.error('Login failed:', {
-        email: normalizedEmail,
-        loginAttempts: user.loginAttempts,
-        isLocked: user.isLocked(),
-        lockUntil: user.lockUntil
-      });
+      await user.save();
 
       return res.status(401).json({
         success: false,
@@ -199,7 +145,6 @@ router.post('/login', [
       });
     }
 
-    // Reset login attempts on successful login
     user.loginAttempts = 0;
     user.lockUntil = undefined;
     user.lastLogin = new Date();
@@ -253,7 +198,7 @@ router.get('/me', protect, async (req, res) => {
 });
 
 // @route   POST /api/auth/forgot-password
-// @desc    Request password reset
+// @desc    Request password reset — always returns 200 to prevent email enumeration
 // @access  Public
 router.post('/forgot-password', [
   body('email').isEmail().normalizeEmail()
@@ -267,12 +212,10 @@ router.post('/forgot-password', [
       });
     }
 
-    const { email } = req.body;
-    const normalizedEmail = email.toLowerCase().trim();
-
+    const normalizedEmail = req.body.email.toLowerCase().trim();
     const user = await User.findOne({ email: normalizedEmail });
-    
-    // Always return success to prevent email enumeration
+
+    // Always return success — prevents email enumeration
     if (!user) {
       return res.json({
         success: true,
@@ -280,11 +223,9 @@ router.post('/forgot-password', [
       });
     }
 
-    // Generate reset token — rawToken goes in the email link, only the hash is stored in DB
     const { rawToken } = await PasswordResetToken.generateToken(user._id);
     const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${rawToken}`;
 
-    // Log activity
     await ActivityLog.create({
       user: user._id,
       action: 'password_change',
@@ -327,7 +268,6 @@ router.post('/reset-password', [
     }
 
     const { token, password } = req.body;
-
     const resetToken = await PasswordResetToken.verifyToken(token);
 
     if (!resetToken) {
@@ -345,15 +285,12 @@ router.post('/reset-password', [
       });
     }
 
-    // Update password
     user.password = password;
     await user.save();
 
-    // Mark token as used
     resetToken.used = true;
     await resetToken.save();
 
-    // Log activity
     await ActivityLog.create({
       user: user._id,
       action: 'password_change',
@@ -378,7 +315,7 @@ router.post('/reset-password', [
 });
 
 // @route   PUT /api/auth/change-password
-// @desc    Change password (authenticated user)
+// @desc    Change password for authenticated user
 // @access  Private
 router.put('/change-password', protect, [
   body('currentPassword').notEmpty().withMessage('Current password is required'),
@@ -394,7 +331,6 @@ router.put('/change-password', protect, [
     }
 
     const { currentPassword, newPassword } = req.body;
-
     const user = await User.findById(req.user._id).select('+password');
 
     const isMatch = await user.comparePassword(currentPassword);
@@ -408,7 +344,6 @@ router.put('/change-password', protect, [
     user.password = newPassword;
     await user.save();
 
-    // Log activity
     await ActivityLog.create({
       user: user._id,
       action: 'password_change',
@@ -441,7 +376,6 @@ router.post('/refresh', async (req, res) => {
     return res.status(401).json({ success: false, message: 'Refresh token required' });
   }
   try {
-    const jwt = require('jsonwebtoken');
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     const user = await User.findById(decoded.id).select('_id isActive');
     if (!user || !user.isActive) {
@@ -449,10 +383,9 @@ router.post('/refresh', async (req, res) => {
     }
     const token = generateToken(user._id);
     res.json({ success: true, token });
-  } catch (error) {
+  } catch {
     return res.status(401).json({ success: false, message: 'Invalid or expired refresh token' });
   }
 });
 
 module.exports = router;
-

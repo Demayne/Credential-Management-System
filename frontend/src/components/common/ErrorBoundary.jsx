@@ -1,18 +1,3 @@
-/**
- * ErrorBoundary Component
- * 
- * Catches JavaScript errors anywhere in the child component tree,
- * logs those errors, and displays a fallback UI instead of crashing.
- * 
- * Features:
- * - Catches rendering errors, lifecycle errors, and errors in constructors
- * - Provides user-friendly error messages
- * - Logs errors for debugging
- * - Allows recovery with retry functionality
- * 
- * @module components/common/ErrorBoundary
- */
-
 import React from 'react'
 import { FaExclamationTriangle, FaRedo } from 'react-icons/fa'
 import '../../styles/components/common/ErrorBoundary.scss'
@@ -28,21 +13,12 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI
     return { hasError: true }
   }
 
   componentDidCatch(error, errorInfo) {
-    // Log error to console and error reporting service
     console.error('ErrorBoundary caught an error:', error, errorInfo)
-    
-    this.setState({
-      error,
-      errorInfo
-    })
-
-    // Here you could log to an error reporting service like Sentry
-    // logErrorToService(error, errorInfo)
+    this.setState({ error, errorInfo })
   }
 
   handleReset = () => {
@@ -55,7 +31,6 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // Custom fallback UI
       return (
         <div className="error-boundary" role="alert">
           <div className="error-boundary-content">

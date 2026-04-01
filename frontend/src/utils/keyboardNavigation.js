@@ -1,18 +1,3 @@
-/**
- * Keyboard Navigation Utilities
- * 
- * Provides utilities for managing keyboard navigation and focus.
- * Ensures WCAG 2.1 AA compliance for keyboard accessibility.
- * 
- * @module utils/keyboardNavigation
- */
-
-/**
- * Trap focus within a container (for modals, dropdowns)
- * @param {HTMLElement} container - Container element to trap focus within
- * @param {HTMLElement} firstFocusable - First focusable element
- * @param {HTMLElement} lastFocusable - Last focusable element
- */
 export const trapFocus = (container, firstFocusable, lastFocusable) => {
   const handleTabKey = (e) => {
     if (e.key !== 'Tab') return
@@ -33,17 +18,12 @@ export const trapFocus = (container, firstFocusable, lastFocusable) => {
   }
 
   container.addEventListener('keydown', handleTabKey)
-  
+
   return () => {
     container.removeEventListener('keydown', handleTabKey)
   }
 }
 
-/**
- * Handle Escape key to close modals/dropdowns
- * @param {Function} onClose - Function to call when Escape is pressed
- * @returns {Function} Cleanup function
- */
 export const handleEscapeKey = (onClose) => {
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
@@ -52,18 +32,12 @@ export const handleEscapeKey = (onClose) => {
   }
 
   document.addEventListener('keydown', handleKeyDown)
-  
+
   return () => {
     document.removeEventListener('keydown', handleKeyDown)
   }
 }
 
-/**
- * Handle Enter key on interactive elements
- * @param {HTMLElement} element - Element to add listener to
- * @param {Function} callback - Function to call when Enter is pressed
- * @returns {Function} Cleanup function
- */
 export const handleEnterKey = (element, callback) => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -73,17 +47,12 @@ export const handleEnterKey = (element, callback) => {
   }
 
   element.addEventListener('keydown', handleKeyDown)
-  
+
   return () => {
     element.removeEventListener('keydown', handleKeyDown)
   }
 }
 
-/**
- * Get all focusable elements within a container
- * @param {HTMLElement} container - Container element
- * @returns {HTMLElement[]} Array of focusable elements
- */
 export const getFocusableElements = (container) => {
   const focusableSelectors = [
     'a[href]',
@@ -101,10 +70,6 @@ export const getFocusableElements = (container) => {
     })
 }
 
-/**
- * Set focus to first focusable element in container
- * @param {HTMLElement} container - Container element
- */
 export const focusFirstElement = (container) => {
   const focusableElements = getFocusableElements(container)
   if (focusableElements.length > 0) {
@@ -112,17 +77,11 @@ export const focusFirstElement = (container) => {
   }
 }
 
-/**
- * Skip link component helper - creates skip navigation link
- * Only creates if it doesn't already exist
- */
 export const createSkipLink = () => {
-  // Check if skip link already exists
   if (document.querySelector('.skip-link')) {
     return
   }
 
-  // Ensure document.body exists
   if (!document.body) {
     return
   }
@@ -138,4 +97,3 @@ export const createSkipLink = () => {
     console.warn('Failed to create skip link:', error)
   }
 }
-

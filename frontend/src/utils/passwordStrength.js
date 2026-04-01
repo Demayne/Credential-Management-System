@@ -1,21 +1,3 @@
-/**
- * Password Strength Utility (Frontend)
- * 
- * Client-side password strength checking utility.
- * Provides real-time feedback for password input fields.
- * 
- * Analyzes password based on:
- * - Length requirements (8+, 12+, 16+)
- * - Character variety (lowercase, uppercase, numbers, symbols)
- * 
- * Returns strength score and helpful feedback messages.
- * 
- * @param {string} password - Password to analyze
- * @returns {Object} Strength analysis
- * @returns {number} strength - Strength score (0-6)
- * @returns {string} strengthLabel - Strength label ('Very Weak' to 'Very Strong')
- * @returns {string[]} feedback - Improvement suggestions or confirmation
- */
 export function checkPasswordStrength(password) {
   let strength = 0;
   const feedback = [];
@@ -50,4 +32,3 @@ export function checkPasswordStrength(password) {
     feedback: feedback.length > 0 ? feedback : ['Strong password!']
   };
 }
-

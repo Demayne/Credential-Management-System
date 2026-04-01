@@ -1,24 +1,3 @@
-/**
- * Admin Routes
- * 
- * Handles all administrative operations requiring admin role.
- * All routes are protected and require admin authentication.
- * 
- * Endpoints:
- * - GET /api/admin/users - List all users (paginated, filtered)
- * - PUT /api/admin/users/:userId/role - Change user role
- * - POST /api/admin/users/:userId/assignments - Assign user to OU/division
- * - DELETE /api/admin/users/:userId/assignments - Remove user from OU/division
- * - GET /api/admin/organizational-structure - Get full OU/division hierarchy
- * 
- * Security:
- * - All routes require admin role
- * - Activity logging for all admin operations
- * - Input validation on all endpoints
- * 
- * @module routes/admin
- */
-
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
@@ -28,13 +7,6 @@ const Division = require('../models/Division');
 const ActivityLog = require('../models/ActivityLog');
 const { protect, authorize } = require('../middleware/auth');
 
-/**
- * Admin Route Protection
- * 
- * All routes in this file require:
- * 1. Valid JWT token (protect middleware)
- * 2. Admin role (authorize('admin') middleware)
- */
 router.use(protect);
 router.use(authorize('admin'));
 
@@ -352,6 +324,60 @@ router.delete('/users/:userId/assignments', [
     });
   } catch (error) {
     console.error('Remove assignment error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error'
+    });
+  }
+});
+
+// @route   DELETE /api/admin/users/:userId
+// @desc    Permanently delete a user account
+// @access  Private (Admin only)
+router.delete('/users/:userId', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    // Prevent deleting own account
+    if (user._id.toString() === req.user._id.toString()) {
+      return res.status(400).json({
+        success: false,
+        message: 'You cannot delete your own account'
+      });
+    }
+
+    const deletedUsername = user.username;
+    const deletedEmail = user.email;
+
+    await User.findByIdAndDelete(req.params.userId);
+
+    // Log activity
+    await ActivityLog.create({
+      user: req.user._id,
+      action: 'user_delete',
+      resourceType: 'user',
+      resourceId: req.params.userId,
+      details: {
+        deletedUsername,
+        deletedEmail
+      },
+      ipAddress: req.ip,
+      userAgent: req.get('user-agent')
+    });
+
+    res.json({
+      success: true,
+      message: `User "${deletedUsername}" has been permanently deleted`
+    });
+  } catch (error) {
+    console.error('Delete user error:', error);
     res.status(500).json({
       success: false,
       message: 'Server error'

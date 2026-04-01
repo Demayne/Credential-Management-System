@@ -1,27 +1,3 @@
-/**
- * Repository Routes
- * 
- * Handles all credential repository and credential management endpoints.
- * Implements role-based access control and division-level permissions.
- * 
- * Endpoints:
- * - GET /api/repositories/accessible - Get user's accessible repositories
- * - GET /api/repositories/search - Search credentials across repositories
- * - GET /api/repositories/:divisionId - Get division's credential repository
- * - POST /api/repositories/:divisionId/credentials - Add new credential
- * - PUT /api/repositories/credentials/:credentialId - Update credential
- * - DELETE /api/repositories/credentials/:credentialId - Soft delete credential
- * - GET /api/repositories/credentials/:credentialId/access - View credential (logs access)
- * 
- * Security:
- * - All routes protected with JWT authentication
- * - Division access checks for non-admin users
- * - Role-based permissions (user, management, admin)
- * - Activity logging for audit trail
- * 
- * @module routes/repositories
- */
-
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');

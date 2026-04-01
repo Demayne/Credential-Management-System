@@ -1,12 +1,3 @@
-/**
- * SkeletonLoader Component
- * 
- * Provides skeleton loading states for better perceived performance.
- * Shows placeholder content while data is loading instead of blank screens.
- * 
- * @module components/common/SkeletonLoader
- */
-
 import '../../styles/components/common/SkeletonLoader.scss'
 
 const SkeletonLoader = ({ type = 'default', count = 1 }) => {

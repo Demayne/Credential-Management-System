@@ -41,14 +41,14 @@ Use the accounts below to explore each permission level. All data is seeded for 
 
 ## Prerequisites
 
-- **Node.js** v16 or higher - [Download](https://nodejs.org/)
+- **Node.js** v22 - [Download](https://nodejs.org/)
 - **MongoDB** v5.0 or higher - [Download](https://www.mongodb.com/try/download/community) or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - **npm** v8 or higher (included with Node.js)
 
 ### Verify Installation
 
 ```bash
-node --version  # v16+
+node --version  # v22
 npm --version    # v8+
 mongod --version # If using local MongoDB
 ```
@@ -182,6 +182,7 @@ Credential-Management-System/
 - `DELETE /api/admin/users/:userId/assignments` - Remove assignment
 - `GET /api/admin/organizational-structure` - Get OU/division hierarchy
 - `GET /api/admin/audit-logs` - Get system audit logs
+- `DELETE /api/admin/users/:userId` - Permanently delete a user
 
 ### Utilities
 
@@ -221,7 +222,7 @@ Credential-Management-System/
 ## Security Implementation
 
 - **Authentication**: JWT tokens with refresh token rotation
-- **Password Storage**: bcrypt hashing (12 salt rounds)
+- **Password Storage**: bcrypt hashing (10 salt rounds)
 - **Credential Encryption**: AES-256-CBC encryption for stored passwords
 - **Access Control**: Role-based permissions with organizational unit restrictions
 - **Rate Limiting**: Brute force protection on authentication endpoints

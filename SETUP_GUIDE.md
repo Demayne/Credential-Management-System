@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js v22
 - MongoDB (running locally or connection string)
 - npm or yarn
 
@@ -64,7 +64,7 @@ After running the seed script, you can use these accounts:
 ### Management Account
 - **Email**: manager@cooltech.com
 - **Password**: Manager123!
-- **Role**: Management (can read, add, and update credentials)
+- **Role**: Management (can read, add, update, and delete credentials)
 
 ### Regular User Account
 - **Email**: user@cooltech.com
@@ -145,8 +145,7 @@ Credential Management System
 │   └── package.json
 │
 ├── README.md
-├── SETUP_GUIDE.md
-└── DEMO_ACCOUNTS.txt
+└── SETUP_GUIDE.md
 ```
 
 ## Next Steps

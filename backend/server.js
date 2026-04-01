@@ -1,30 +1,3 @@
-/**
- * Express Server Configuration
- * 
- * Main server file that configures and starts the Express application.
- * Sets up middleware, routes, error handling, and security features.
- * 
- * Security Features:
- * - Helmet.js for security headers
- * - CORS configuration
- * - Rate limiting (stricter for auth endpoints)
- * - Environment variable validation
- * 
- * Middleware:
- * - Body parsing (JSON, URL-encoded)
- * - Request logging
- * - Error handling
- * 
- * Routes:
- * - /api/auth - Authentication endpoints
- * - /api/repositories - Credential repository endpoints
- * - /api/admin - Admin operation endpoints
- * - /api/utils - Utility endpoints
- * - /api/statistics - Statistics endpoints
- * 
- * @module server
- */
-
 // Application Insights — must be initialized before all other requires
 if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING) {
   const appInsights = require('applicationinsights');
@@ -47,12 +20,6 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 const { monitorMiddleware, getStats } = require('./middleware/monitor');
 
-/**
- * Load Environment Variables
- * 
- * Loads environment variables from .env file.
- * Validates required variables before starting server.
- */
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 // Validate required environment variables
